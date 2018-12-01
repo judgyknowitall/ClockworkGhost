@@ -264,12 +264,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels: []
+  tileSetProto: []
   test: {fileID: 1401959582362352, guid: 3a7e77c431f394a98b130caa5b68fa07, type: 2}
   tile: {fileID: 1232154207866632, guid: d962473c9d176458ab84af4a1783655a, type: 2}
   startTile: {fileID: 1232154207866632, guid: a1302792552fc49ba8d14e2561c2dc26, type: 2}
   specialTile: {fileID: 1232154207866632, guid: cbbe2296b8c8e4b1d8c70e20972f6a26,
     type: 2}
-  scale: 3
+  roomSize: 1
 --- !u!4 &1267776540
 Transform:
   m_ObjectHideFlags: 0
