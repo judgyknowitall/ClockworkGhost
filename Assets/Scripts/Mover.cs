@@ -14,7 +14,7 @@ public class Mover : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();	
 	}
 	
-	void Update ()
+	void FixedUpdate()
     {
 		
 	}

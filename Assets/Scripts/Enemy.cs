@@ -12,7 +12,7 @@ public abstract class Enemy : MonoBehaviour
         mover = GetComponent<Mover>();	
 	}
 	
-	void Update ()
+	void FixedUpdate()
     {
         Move();
     }
