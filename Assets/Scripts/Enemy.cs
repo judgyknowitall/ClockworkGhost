@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Mover))]
 public abstract class Enemy : MonoBehaviour
 {
+    private Mover mover;
+
 	void Start ()
     {
-		
+        mover = GetComponent<Mover>();	
 	}
 	
 	void Update ()
@@ -21,6 +24,6 @@ public abstract class Enemy : MonoBehaviour
         mover.Move(movementDirection);
     }
 
-    private Vector2 DecideMovementDirection();
+    protected abstract Vector2 DecideMovementDirection();
     #endregion
 }

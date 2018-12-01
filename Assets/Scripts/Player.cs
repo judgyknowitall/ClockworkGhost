@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Mover))]
 public class Player : MonoBehaviour
 {
     private Mover mover;
@@ -9,7 +10,7 @@ public class Player : MonoBehaviour
 
     void Start ()
     {
-		
+        mover = GetComponent<Mover>();
 	}
 
     void Update ()
@@ -21,6 +22,12 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Bite();
+            return;
+        }
+
         Vector2 movementDirection = DecideMovementDirection();
         mover.Move(movementDirection);
     }
@@ -29,25 +36,19 @@ public class Player : MonoBehaviour
     {
         Vector2 movementDirection = Vector2.zero;
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Bite();
-            return;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Up))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             movementDirection += Vector2.up;
         }
-        if (Input.GetKeyDown(KeyCode.Right))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             movementDirection += Vector2.right;
         }
-        if (Input.GetKeyDown(KeyCode.Down))
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             movementDirection += Vector2.down;
         }
-        if (Input.GetKeyDown(KeyCode.Left))
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             movementDirection += Vector2.left;
         }
