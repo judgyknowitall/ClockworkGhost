@@ -8,7 +8,7 @@ public class Player : MonoBehaviour, IDamageable
 {
     private Mover mover;
     private Animator animator;
-    private int ether;
+    public float ether;
 
     void Start ()
     {
@@ -77,11 +77,11 @@ public class Player : MonoBehaviour, IDamageable
 
     public void DoDamage(uint strength)
     {
-        ether = (int)(ether - strength);
+        ether = ether - strength;
     }
 
     public void ConsumeEther(uint cost)
     {
-        ether = (int)(ether - cost);
+        ether = ether - cost;
     }
 }
