@@ -2,15 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
+public abstract class Enemy : MonoBehaviour
+{
+	void Start ()
+    {
 		
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	void Update ()
+    {
+        Move();
+    }
+
+    #region Movement
+    private void Move()
+    {
+        Vector2 movementDirection = DecideMovementDirection();
+        mover.Move(movementDirection);
+    }
+
+    private Vector2 DecideMovementDirection();
+    #endregion
 }
