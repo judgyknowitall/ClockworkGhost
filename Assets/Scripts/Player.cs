@@ -4,11 +4,11 @@ using UnityEngine;
 
 [RequireComponent(typeof(Mover))]
 [RequireComponent(typeof(Animator))]
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     private Mover mover;
     private Animator animator;
-    private uint ether;
+    private int ether;
 
     void Start ()
     {
@@ -74,4 +74,14 @@ public class Player : MonoBehaviour
     }
 
     #endregion
+
+    public void DoDamage(uint strength)
+    {
+        ether = (int)(ether - strength);
+    }
+
+    public void ConsumeEther(uint cost)
+    {
+        ether = (int)(ether - cost);
+    }
 }

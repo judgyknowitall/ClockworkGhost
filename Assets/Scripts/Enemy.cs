@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Mover))]
-public abstract class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour, IDamageable
 {
     private Mover mover;
+    private int health;
 
 	void Start ()
     {
@@ -25,5 +26,8 @@ public abstract class Enemy : MonoBehaviour
     }
 
     protected abstract Vector2 DecideMovementDirection();
+
+    public abstract void DoDamage(uint strength);
+
     #endregion
 }
