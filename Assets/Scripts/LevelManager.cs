@@ -5,21 +5,55 @@ using System.Linq;
 public class LevelManager : MonoBehaviour {
 
 	public List<LevelDescriptor> levels;
+
 	public GameObject test;
+	public GameObject tile;
+	public GameObject startTile;
+	public GameObject specialTile;
+	public float scale = 1;
 
 	IEnumerator<LevelDescriptor> levelEnumerator;
 
-	// Use this for initialization
 	void Start () {
 		levelEnumerator = levels.GetEnumerator();
-		var graph = GenerateGraph(10, 3);
+		levelEnumerator.MoveNext();
+		var graph = GenerateGraph(5, 3);
 		testGraph(graph.root);
+		var start = Instantiate(startTile, transform);
+		start.transform.position = special[0].position;
+		for (var i = 1; i < special.Count(); i++){
+			var spec = Instantiate(specialTile, transform);
+			spec.transform.position = special[i].position;
+		}
 	}
 
 	void testGraph(Node root){
 		if (root == null) return;
-		var thing = Instantiate(test, transform);
-		thing.transform.position = root.position;
+
+		var room = Instantiate(test, transform);
+		room.transform.position = root.position;
+		
+		if (root.up != null){
+			var bridge = Instantiate(tile, room.transform);
+			bridge.transform.position = root.position + Vector2.up * scale * 0.5f;
+			bridge.gameObject.name = "To Up";
+		}
+		if (root.down != null){
+			var bridge = Instantiate(tile, room.transform);
+			bridge.transform.position = root.position + Vector2.down * scale * 0.5f;
+			bridge.gameObject.name = "To Down";
+		}
+		if (root.left != null){
+			var bridge = Instantiate(tile, room.transform);
+			bridge.transform.position = root.position + Vector2.left * scale * 0.5f;
+			bridge.gameObject.name = "To Left";
+		}
+		if (root.right != null){
+			var bridge = Instantiate(tile, room.transform);
+			bridge.transform.position = root.position + Vector2.right * scale * 0.5f;
+			bridge.gameObject.name = "To Right";
+		}
+		
 		testGraph(root.up);
 		testGraph(root.down);
 		testGraph(root.left);
@@ -29,12 +63,14 @@ public class LevelManager : MonoBehaviour {
 	#region Level Generation
 	public void GenerateLevel(){ }
 
+	List<Node> special = new List<Node>();
+
 	private Graph GenerateGraph(uint length, uint complexity){ 
 		var output = new Graph{
 			root = new Node{
 				position = Vector2.zero, 
 				right = new Node{
-					position = Vector2.zero + Vector2.left
+					position = Vector2.zero + Vector2.right * scale
 				}
 			},
 			nodes = new HashSet<Node>()
@@ -48,7 +84,7 @@ public class LevelManager : MonoBehaviour {
 				Node[] nodeAtPos;
 				switch (dir){
 					case GraphDirections.UP:
-						newPos = current.position + Vector2.up;
+						newPos = current.position + Vector2.up * scale;
 						nodeAtPos = 
 							(from node in output.nodes
 							where node.position == newPos
@@ -61,10 +97,12 @@ public class LevelManager : MonoBehaviour {
 						}
 						else if (nodeAtPos.Length > 0){
 							current = nodeAtPos[0];
+						}else{
+							current = current.up;
 						}
 						break;
 					case GraphDirections.DOWN:
-						newPos = current.position + Vector2.down;
+						newPos = current.position + Vector2.down * scale;
 						nodeAtPos = 
 							(from node in output.nodes
 							where node.position == newPos
@@ -77,10 +115,12 @@ public class LevelManager : MonoBehaviour {
 						}
 						else if (nodeAtPos.Length > 0){
 							current = nodeAtPos[0];
+						}else{
+							current = current.down;
 						}
 						break;
 					case GraphDirections.LEFT:
-						newPos = current.position + Vector2.left;
+						newPos = current.position + Vector2.left * scale;
 						nodeAtPos = 
 							(from node in output.nodes
 							where node.position == newPos
@@ -93,10 +133,12 @@ public class LevelManager : MonoBehaviour {
 						}
 						else if (nodeAtPos.Length > 0){
 							current = nodeAtPos[0];
+						}else{
+							current = current.left;
 						}
 						break;
 					case GraphDirections.RIGHT:
-						newPos = current.position + Vector2.right;
+						newPos = current.position + Vector2.right * scale;
 						nodeAtPos = 
 							(from node in output.nodes
 							where node.position == newPos
@@ -109,11 +151,14 @@ public class LevelManager : MonoBehaviour {
 						}
 						else if (nodeAtPos.Length > 0){
 							current = nodeAtPos[0];
+						}else{
+							current = current.right;
 						}
 						break;
 				}
 
 			}
+			special.Add(current);
 			current = output.root.right;
 		}
 		return output;
