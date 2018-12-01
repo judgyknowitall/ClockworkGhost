@@ -4,16 +4,8 @@ using UnityEngine;
 using System.Linq;
 
 public class LevelManager : MonoBehaviour {
-	public enum TileType{FLOOR, WALL, CORNER}
 
 	public List<LevelDescriptor> levels;
-	//public Dictionary<TileType, GameObject> tileSet = new Dictionary<TileType, GameObject>();
-
-	[System.Serializable]
-	public struct Pair{
-		public TileType fst;
-		public GameObject snd;
-	}
 
 	public List<Pair> tileSetProto;
 	Dictionary<TileType, GameObject> tileSet = new Dictionary<TileType, GameObject>();
@@ -30,84 +22,33 @@ public class LevelManager : MonoBehaviour {
 	}
 	
 
-	IEnumerator<LevelDescriptor> levelEnumerator;
+	IEnumerator<LevelDescriptor> levelEnumerator;	//public Dictionary<TileType, GameObject> tileSet = new Dictionary<TileType, GameObject>();
+
 
 	void Start () {
 		foreach (var p in tileSetProto){
 			tileSet[p.fst] = p.snd;
 		}
+
 		levelEnumerator = levels.GetEnumerator();
 		levelEnumerator.MoveNext();
-		var graph = GenerateGraph(15, 3);
+
+		var graph = GenerateGraph(25, 7);
 		testGraph(graph.root);
+
 		var start = Instantiate(startTile, transform);
 		start.transform.position = special[0].position;
+
 		for (var i = 1; i < special.Count(); i++){
 			var spec = Instantiate(specialTile, transform);
 			spec.transform.position = special[i].position;
 		}
-
-		//tileSet = new Dictionary<TileType, GameObject>();
 	}
 
 	void testGraph(Node root){
 		if (root == null) return;
 
-		//var room = Instantiate(test, transform);
-		var room = new Room(roomSize);
-		for (var i = 0; i < room.floor.GetLength(0); i++){
-			for (var j = 0; j < room.floor.GetLength(1); j++){
-				room.floor[i,j] = Instantiate(tileSet[TileType.FLOOR], transform);
-				var x = i - room.floor.GetLength(0) / 2f + 0.5f;
-				var y = j - room.floor.GetLength(1) / 2f + 0.5f;
-				var pos = root.position + new Vector2(x * 0.6f, y * 0.6f);
-				room.floor[i,j].transform.position = pos;
-			}
-		}
-		for (var i = 0; i < 4; i++){
-			for (var j = 0; j < room.walls.GetLength(1); j++){
-				room.walls[i, j] = Instantiate(tileSet[TileType.WALL], transform);
-				Vector2 pos = Vector2.zero;
-
-				switch(i){
-					case 0:
-						pos = room.floor[0, j].transform.position + (Vector3)(Vector2.left * 0.6f);
-						break;
-					case 1:
-						pos = room.floor[room.floor.GetLength(0) - 1, j].transform.position + (Vector3)(Vector2.right * 0.6f);
-						break;
-					case 2:
-						pos = room.floor[j, 0].transform.position + (Vector3)(Vector2.down * 0.6f);
-						break;
-					case 3:
-						pos = room.floor[j, room.floor.GetLength(1) - 1].transform.position + (Vector3)(Vector2.up * 0.6f);
-						break;
-				}
-
-				room.walls[i, j].transform.position = pos;
-			}
-		}
-
-		room.corners[0] = Instantiate(tileSet[TileType.CORNER], transform);
-		room.corners[1] = Instantiate(tileSet[TileType.CORNER], transform);
-		room.corners[2] = Instantiate(tileSet[TileType.CORNER], transform);
-		room.corners[3] = Instantiate(tileSet[TileType.CORNER], transform);
-
-		room.corners[0].transform.position = new Vector2(
-			(room.walls[0, 0].transform.position + (Vector3)(Vector2.up * 0.6f)).x,
-			(room.walls[3, 0].transform.position + (Vector3)(Vector2.right * 0.6f)).y);
-		room.corners[1].transform.position = new Vector2(
-			(room.walls[1, 0].transform.position + (Vector3)(Vector2.up * 0.6f)).x,
-			(room.walls[3, room.walls.GetLength(1) - 1].transform.position + (Vector3)(Vector2.left * 0.6f)).y);
-		room.corners[2].transform.position = new Vector2(
-			(room.walls[0, room.walls.GetLength(1) - 1].transform.position + (Vector3)(Vector2.down * 0.6f)).x,
-			(room.walls[2, 0].transform.position + (Vector3)(Vector2.left * 0.6f)).y);
-		room.corners[3].transform.position = new Vector2(
-			(room.walls[2, room.walls.GetLength(1) - 1].transform.position + (Vector3)(Vector2.right * 0.6f)).x,
-			(room.walls[1, 0].transform.position + (Vector3)(Vector2.down * 0.6f)).y);
-
-
-		//room.transform.position = root.position;
+		var room = new Room(roomSize, tileSet, transform, root);
 		
 		if (root.up != null){
 			var bridge = Instantiate(tile, room.floor[0,0].transform);
@@ -276,10 +217,70 @@ public class LevelManager : MonoBehaviour {
 		public GameObject[,] walls;
 		public GameObject[] corners;
 
-		public Room(int size){
+		public Room(int size, Dictionary<TileType, GameObject> tileSet, Transform transform, Node root){
 			floor = new GameObject[size, size];
 			walls = new GameObject[4, size];
 			corners = new GameObject[4];
+
+			for (var i = 0; i < floor.GetLength(0); i++){
+				for (var j = 0; j < floor.GetLength(1); j++){
+					floor[i,j] = Instantiate(tileSet[TileType.FLOOR], transform);
+					var x = i - floor.GetLength(0) / 2f + 0.5f;
+					var y = j - floor.GetLength(1) / 2f + 0.5f;
+					var pos = root.position + new Vector2(x * 0.6f, y * 0.6f);
+					floor[i,j].transform.position = pos;
+				}
+			}
+			for (var i = 0; i < 4; i++){
+				for (var j = 0; j < walls.GetLength(1); j++){
+					walls[i, j] = Instantiate(tileSet[TileType.WALL], transform);
+					Vector2 pos = Vector2.zero;
+
+					switch(i){
+						case 0:
+							pos = floor[0, j].transform.position + (Vector3)(Vector2.left * 0.6f);
+							break;
+						case 1:
+							pos = floor[floor.GetLength(0) - 1, j].transform.position + (Vector3)(Vector2.right * 0.6f);
+							break;
+						case 2:
+							pos = floor[j, 0].transform.position + (Vector3)(Vector2.down * 0.6f);
+							break;
+						case 3:
+							pos = floor[j, floor.GetLength(1) - 1].transform.position + (Vector3)(Vector2.up * 0.6f);
+							break;
+					}
+
+					walls[i, j].transform.position = pos;
+				}
+			}
+
+			corners[0] = Instantiate(tileSet[TileType.CORNER], transform);
+			corners[1] = Instantiate(tileSet[TileType.CORNER], transform);
+			corners[2] = Instantiate(tileSet[TileType.CORNER], transform);
+			corners[3] = Instantiate(tileSet[TileType.CORNER], transform);
+
+			corners[0].transform.position = new Vector2(
+				(walls[0, 0].transform.position + (Vector3)(Vector2.up * 0.6f)).x,
+				(walls[3, 0].transform.position + (Vector3)(Vector2.right * 0.6f)).y);
+			corners[1].transform.position = new Vector2(
+				(walls[1, 0].transform.position + (Vector3)(Vector2.up * 0.6f)).x,
+				(walls[3, walls.GetLength(1) - 1].transform.position + (Vector3)(Vector2.left * 0.6f)).y);
+			corners[2].transform.position = new Vector2(
+				(walls[0, walls.GetLength(1) - 1].transform.position + (Vector3)(Vector2.down * 0.6f)).x,
+				(walls[2, 0].transform.position + (Vector3)(Vector2.left * 0.6f)).y);
+			corners[3].transform.position = new Vector2(
+				(walls[2, walls.GetLength(1) - 1].transform.position + (Vector3)(Vector2.right * 0.6f)).x,
+				(walls[1, 0].transform.position + (Vector3)(Vector2.down * 0.6f)).y);
 		}
+	}
+
+	public enum TileType{FLOOR, WALL, CORNER}
+
+
+	[System.Serializable]
+	public struct Pair{
+		public TileType fst;
+		public GameObject snd;
 	}
 }

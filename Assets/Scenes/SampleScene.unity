@@ -263,14 +263,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ae8e1e9387074143a54e29028197b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levels: []
-  tileSetProto: []
+  levels:
+  - minDifficulty: 0
+    maxDifficulty: 0
+    length: 0
+    complexity: 0
+    lore: {fileID: 0}
+    spawners: []
+  - minDifficulty: 0
+    maxDifficulty: 0
+    length: 0
+    complexity: 0
+    lore: {fileID: 0}
+    spawners: []
+  - minDifficulty: 0
+    maxDifficulty: 0
+    length: 0
+    complexity: 0
+    lore: {fileID: 0}
+    spawners: []
+  tileSetProto:
+  - fst: 0
+    snd: {fileID: 1232154207866632, guid: e4d6ae70c57f048aa89d2ca539b9fe36, type: 2}
+  - fst: 1
+    snd: {fileID: 1232154207866632, guid: a2b5ce4d7f8c1410887f706195ccbdbb, type: 2}
+  - fst: 2
+    snd: {fileID: 1232154207866632, guid: e443176831d55409eae67a933769ca45, type: 2}
   test: {fileID: 1401959582362352, guid: 3a7e77c431f394a98b130caa5b68fa07, type: 2}
   tile: {fileID: 1232154207866632, guid: d962473c9d176458ab84af4a1783655a, type: 2}
   startTile: {fileID: 1232154207866632, guid: a1302792552fc49ba8d14e2561c2dc26, type: 2}
   specialTile: {fileID: 1232154207866632, guid: cbbe2296b8c8e4b1d8c70e20972f6a26,
     type: 2}
-  roomSize: 1
+  roomSize: 3
 --- !u!4 &1267776540
 Transform:
   m_ObjectHideFlags: 0
