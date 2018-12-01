@@ -2,15 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour {
+[RequireComponent(typeof(Mover))]
+public abstract class Enemy : MonoBehaviour
+{
+    private Mover mover;
 
-	// Use this for initialization
-	void Start () {
-		
+	void Start ()
+    {
+        mover = GetComponent<Mover>();	
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	void Update ()
+    {
+        Move();
+    }
+
+    #region Movement
+    private void Move()
+    {
+        Vector2 movementDirection = DecideMovementDirection();
+        mover.Move(movementDirection);
+    }
+
+    protected abstract Vector2 DecideMovementDirection();
+    #endregion
 }
