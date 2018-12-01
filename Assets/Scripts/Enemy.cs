@@ -6,14 +6,20 @@ using UnityEngine;
 public abstract class Enemy : MonoBehaviour, IDamageable
 {
     private Mover mover;
-    private int health;
+    protected float health;
+    protected Player player;
+
+    void Awake()
+    {
+        player = FindObjectOfType<Player>();
+    }
 
 	void Start ()
     {
-        mover = GetComponent<Mover>();	
+        mover = GetComponent<Mover>();
 	}
 	
-	void FixedUpdate()
+	protected virtual void FixedUpdate()
     {
         Move();
     }

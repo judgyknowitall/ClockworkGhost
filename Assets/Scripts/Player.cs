@@ -19,7 +19,39 @@ public class Player : MonoBehaviour, IDamageable
     void FixedUpdate ()
     {
         Move();
+        UseAbilities();
 	}
+
+    #region Abilities
+    void UseAbilities()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Debug.Log("Ability 1!");
+            ConsumeEther(50);
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            Debug.Log("Ability 2!");
+            ConsumeEther(75);
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("Ability 3!");
+            ConsumeEther(100);
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log("Ability 4!");
+            ConsumeEther(200);
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Debug.Log("Ability 5!");
+            ConsumeEther(400);
+        }
+    }
+    #endregion
 
     #region Movement
 
@@ -82,6 +114,6 @@ public class Player : MonoBehaviour, IDamageable
 
     public void ConsumeEther(uint cost)
     {
-        ether = ether - cost;
+        DoDamage(cost);
     }
 }
