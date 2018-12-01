@@ -173,6 +173,7 @@ public class LevelManager : MonoBehaviour {
 
 	class Node{
 		public Vector2 position;
+		public Room room;
 		public Node up;
 		public Node down;
 		public Node left;
@@ -189,5 +190,17 @@ public class LevelManager : MonoBehaviour {
 		uint complexity;
 		Lore lore;
 		List<Spawner> spawners; 
+	}
+
+	class Room{
+		public GameObject[,] floor;
+		public GameObject[,] walls;
+		public GameObject[] corners;
+
+		public Room(int size){
+			floor = new GameObject[size, size];
+			walls = new GameObject[4, size];
+			corners = new GameObject[4];
+		}
 	}
 }
