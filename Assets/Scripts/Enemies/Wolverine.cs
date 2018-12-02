@@ -20,17 +20,19 @@ public class Wolverine : Enemy
     protected override void Start()
     {
         base.Start();
-        stunned = true;
+        stunned = false;
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+        if (beingKilled) return;
         Attack();
     }
 
     public void Attack()
     {
+        if (beingKilled) { return; }
         attackCooldown -= Time.deltaTime;
         if (Vector2.Distance(transform.position, player.transform.position) <= range && attackCooldown <= 0)
         {
@@ -50,6 +52,6 @@ public class Wolverine : Enemy
 
     protected override Vector2 DecideMovementDirection()
     {
-        return Vector2.zero;
+        return Random.onUnitSphere;
     }
 }
