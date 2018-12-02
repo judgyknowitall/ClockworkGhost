@@ -9,12 +9,14 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     protected float health;
     protected Player player;
 
+    public bool stunned = false;
+
     void Awake()
     {
         player = FindObjectOfType<Player>();
     }
 
-	void Start ()
+    protected virtual void Start ()
     {
         mover = GetComponent<Mover>();
 	}

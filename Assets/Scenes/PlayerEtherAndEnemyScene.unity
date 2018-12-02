@@ -146,7 +146,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d36af6f8f6e3e4a3ab7311f61363d6d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ether: 1000
+  ether: 100
+  biteGrabArea: 0.25
+  biteRange: 10
+  jumpSpeed: 15
+  jumpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.035825748
+      outSlope: 0.035825748
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.2080378
+    - serializedVersion: 3
+      time: 0.85431206
+      value: 1.0000405
+      inSlope: 0.41512296
+      outSlope: 0.41512296
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.09384996
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1.1307738
+      value: 0.057427257
+      inSlope: -5.4559855
+      outSlope: -5.4559855
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.0645833
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &334795230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -566,6 +602,7 @@ GameObject:
   - component: {fileID: 1508350236}
   - component: {fileID: 1508350235}
   - component: {fileID: 1508350239}
+  - component: {fileID: 1508350240}
   m_Layer: 0
   m_Name: Wolverine
   m_TagString: Untagged
@@ -584,10 +621,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb500f1d16f42340a09bde7461f6e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 1
+  stunned: 0
+  range: 0.3
   audioSource: {fileID: 1508350239}
   attackCooldownLength: 3
-  damage: 15
+  damage: 20
 --- !u!114 &1508350236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,7 +657,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!4 &1508350238
 Transform:
   m_ObjectHideFlags: 0
@@ -643,7 +681,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 31369f0670d20b14b998373860c477d9, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -729,6 +767,31 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!61 &1508350240
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1508350234}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0012122989, y: 0.003636837}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.6387497, y: 0.6387496}
+  m_EdgeRadius: 0
 --- !u!1 &1644300187
 GameObject:
   m_ObjectHideFlags: 0
@@ -855,12 +918,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bbeb337b48a946343a0879e5b3d9f66f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 46a16bf66ef054c34816200de2d77ba4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

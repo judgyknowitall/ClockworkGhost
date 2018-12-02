@@ -10,6 +10,14 @@ public class Player : MonoBehaviour, IDamageable
     private Animator animator;
     public float ether;
 
+    private bool biting = false;
+
+    [SerializeField] private float biteCircleRadius = 0.1f;
+    [SerializeField] private int jumpPauseTime;
+    [SerializeField] private int jumpTimeSteps;
+
+    public AnimationCurve jumpCurve = AnimationCurve.Linear(0, 0, 10, 10);
+
     void Start ()
     {
         mover = GetComponent<Mover>();
@@ -57,9 +65,12 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Move()
     {
+        if (biting) return;
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Bite();
+            print("Space");
+            BiteAttempt();
             return;
         }
 
@@ -100,10 +111,104 @@ public class Player : MonoBehaviour, IDamageable
         return movementDirection.normalized;
     }
 
-    private void Bite()
+
+    private void BiteAttempt()
     {
-        return;
+        //RaycastHit2D spherecastResult = Physics2D.CircleCast(transform.position, biteCircleRadius, Head.direction, 16f);
+        //if (spherecastResult.collider == null || spherecastResult.collider.gameObject.GetComponent<Enemy>() == null || !spherecastResult.collider.gameObject.GetComponent<Enemy>().stunned)
+        //    return;
+
+        //Bite(spherecastResult);
     }
+
+    private void Bite(RaycastHit2D spherecastResult)
+    {
+        biting = true;
+
+        Vector2 enemyPosition = spherecastResult.transform.position;
+        Vector2 playerPosition = transform.position;
+
+        IEnumerator lungeAnimation = Jump(enemyPosition, playerPosition);
+        StartCoroutine(lungeAnimation);
+    }
+
+    private IEnumerator Jump(Vector2 enemyPosition, Vector2 playerPosition)
+    {
+        for (int i = 0; i < jumpPauseTime; i++)
+        {
+            yield return new WaitForSeconds(1); 
+        }
+
+        float distancePerFrame = Vector2.Distance(enemyPosition, playerPosition) / jumpTimeSteps;
+        Vector2 direction = (enemyPosition - playerPosition).normalized;
+
+        for (int i = 0; i < jumpTimeSteps; i++)
+        {
+            transform.position = playerPosition + (direction * (distancePerFrame * i));
+            yield return null;
+        }
+    }
+
+    //private void Bite()
+    //{
+    //    if (biting) return;
+
+    //    print("Biting attempt");
+
+    //    var hits = Physics2D.CircleCastAll(transform.position, biteRange, Vector2.zero);
+    //    RaycastHit2D closest = new RaycastHit2D();
+    //    var shortestDistance = Mathf.Infinity;
+    //    foreach (RaycastHit2D hit in hits)
+    //    {
+    //        if (hit.transform.gameObject.GetComponent<Enemy>() == null)
+    //            continue;
+
+    //        var hitDistance = Vector2.Distance(hit.transform.position, transform.position);
+    //        if (hitDistance < shortestDistance)
+    //        {
+    //            shortestDistance = hitDistance;
+    //            closest = hit;
+    //        }
+    //    }
+
+    //    if (shortestDistance == Mathf.Infinity)
+    //        return;
+
+    //    print("Target Found");
+
+    //    transform.position = closest.transform.position;
+
+    //    ether += 10;
+
+    //    closest.transform.gameObject.GetComponent<Enemy>().DoDamage(999);
+
+    //Vector2 movementDirection = (closest.transform.position - transform.position).normalized;
+    //mover.speed = 0;
+    //mover.Move(movementDirection);
+    //biting = true;
+
+    //IEnumerator coroutine = BiteJump(closest, shortestDistance, movementDirection, transform.position);
+    //StartCoroutine(coroutine);
+    //}
+
+    //private IEnumerator BiteJump(RaycastHit2D closest, float shortestDistance, Vector2 enemyPrevPos, Vector2 movementDirection)
+    //{
+    //    print("Begining Jump Coroutine");
+    //    print("Distance" + Vector2.Distance(transform.position, enemyPrevPos));
+    //    while (Vector2.Distance(transform.position, enemyPrevPos) > biteGrabArea)
+    //    {
+    //        var t = Mathf.InverseLerp(shortestDistance, biteGrabArea, Vector2.Distance(transform.position, enemyPrevPos));
+    //        Mathf.Clamp(t, 0.1f, 1f);
+    //        print("t" + t);
+    //        mover.speed = jumpCurve.Evaluate(t) * jumpSpeed;
+    //        mover.Move(movementDirection);
+    //        print("Mover SPeed" + mover.speed);
+    //        yield return null;
+    //    }
+    //    mover.speed = 1;
+    //    biting = false;
+    //    print("Exiting Jump Coroutine");
+    //}
 
     #endregion
 

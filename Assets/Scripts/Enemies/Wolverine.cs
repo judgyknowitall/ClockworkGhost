@@ -17,6 +17,12 @@ public class Wolverine : Enemy
 
     private float attackCooldown = 0;
 
+    protected override void Start()
+    {
+        base.Start();
+        stunned = true;
+    }
+
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
@@ -28,7 +34,7 @@ public class Wolverine : Enemy
         attackCooldown -= Time.deltaTime;
         if (Vector2.Distance(transform.position, player.transform.position) <= range && attackCooldown <= 0)
         {
-            player.DoDamage(15);
+            player.DoDamage(damage);
             if (audioSource != null)
                 audioSource.Play();
             attackCooldown = attackCooldownLength;
@@ -39,6 +45,7 @@ public class Wolverine : Enemy
     public override void DoDamage(uint strength)
     {
         health -= strength;
+        if (health < 0) Destroy(this.gameObject);
     }
 
     protected override Vector2 DecideMovementDirection()
