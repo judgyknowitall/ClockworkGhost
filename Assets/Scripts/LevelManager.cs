@@ -225,7 +225,21 @@ public class LevelManager : MonoBehaviour {
 		}
 
 		for (var i = hallwayPos - 1; i <= hallwayPos + 1; i++){
-			if (i < 0 || i == hallwayPos || i > start.room.walls.GetLength(1) - 1) continue;
+			if (i < 0 || i == hallwayPos || i >= start.room.walls.GetLength(1) - 1){
+				if (i == hallwayPos) continue;
+
+				var corStartFloor = start.room.walls[(int)dir, i].transform.position;
+				var corEndFloor = end.room.walls[(int)dir.opposite(), i].transform.position;
+
+				Destroy(start.room.walls[(int)dir, i]);
+				start.room.walls[(int)dir, i] = Instantiate(tileSet[TileType.FLOOR], transform);
+				start.room.walls[(int)dir, i].transform.position = corStartFloor;
+
+				Destroy(end.room.walls[(int)dir.opposite(), i]);
+				end.room.walls[(int)dir.opposite(), i] = Instantiate(tileSet[TileType.FLOOR], transform);
+				end.room.walls[(int)dir.opposite(), i].transform.position = corEndFloor;
+
+			}
 			var corStart = start.room.walls[(int)dir, i].transform.position;
 			var corEnd = end.room.walls[(int)dir.opposite(), i].transform.position;
 
@@ -245,7 +259,6 @@ public class LevelManager : MonoBehaviour {
 					}else if(i == hallwayPos + 1){
 							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,90));
 							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,0));
-							break;
 					}
 					break;
 				case GraphDirections.DOWN:
@@ -255,7 +268,6 @@ public class LevelManager : MonoBehaviour {
 					}else if(i == hallwayPos + 1){
 							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,0));
 							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,90));
-							break;
 					}
 					break;
 				case GraphDirections.LEFT:
@@ -265,7 +277,6 @@ public class LevelManager : MonoBehaviour {
 					}else if(i == hallwayPos + 1){
 							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,180));
 							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,90));
-							break;
 					}
 					break;
 				case GraphDirections.RIGHT:
@@ -275,7 +286,6 @@ public class LevelManager : MonoBehaviour {
 					}else if(i == hallwayPos + 1){
 							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,90));
 							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,180));
-							break;
 					}
 					break;
 			}
