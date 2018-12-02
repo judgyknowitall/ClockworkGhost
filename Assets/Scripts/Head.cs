@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class Head : MonoBehaviour
 {
-	void Start ()
+    [SerializeField]
+    public Vector2 direction;
+
+    void Start()
     {
-		
-	}
-	
-	void FixedUpdate ()
+
+    }
+
+    void FixedUpdate()
     {
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Quaternion rot = Quaternion.LookRotation(transform.position - mousePosition, Vector3.forward);
+        Vector2 directionVector = mousePosition - transform.position;
+        Vector2 directionVectorNorm = direction.normalized;
+        direction = directionVector;
 
-        rotation = rot;
-	}
+
+        var quat = Quaternion.LookRotation(transform.position - mousePosition, Vector3.forward);
+        var quatVec = quat.eulerAngles;
+        quatVec = quatVec.Multiply(Vector3.forward);
+
+        transform.rotation = Quaternion.Euler(quatVec);
+    }
 }
