@@ -5,23 +5,26 @@ using System.Linq;
 
 public class LevelManager : MonoBehaviour {
 
+	#region Public Fields
 	public List<LevelDescriptor> levels;
-
 	public List<Pair> tileSetProto;
-	Dictionary<TileType, GameObject> tileSet = new Dictionary<TileType, GameObject>();
-
+	public GameObject endObject;
 	public int roomSize = 1;
-	
-
+	public int separation = 3;
 	public float tileDistance = 0.6f;
+	#endregion
 
-	int separation = 3;
-
-	public float scale {
+	#region Internal Data
+	float scale {
 		get{ return roomSize + separation + tileDistance; }
 	}	
+	#endregion
 
+	#region Generated Data Structures
 	IEnumerator<LevelDescriptor> levelEnumerator;
+	Dictionary<TileType, GameObject> tileSet = new Dictionary<TileType, GameObject>();
+	List<Node> special = new List<Node>();
+	#endregion
 
 	void Start () {
 		foreach (var p in tileSetProto){
@@ -44,7 +47,6 @@ public class LevelManager : MonoBehaviour {
 			}
 		}
 
-		separation = levelEnumerator.Current.roomSeparation;
 		GenerateLevel(levelEnumerator.Current);
 		return canAdvance;
 	}
@@ -54,17 +56,21 @@ public class LevelManager : MonoBehaviour {
 		var graph = GenerateGraph(level.length, level.complexity);
 		BuildAllRooms(graph.root);
 		BuildAllHallways(graph.root);
-	}
 
-	List<Node> special = new List<Node>();
+		var endRoomWalls = special[0].room.walls;
+		var whichWall = Random.Range(0, 4);
+		var whereInWall = Random.Range(0, endRoomWalls.GetLength(1));
+		var pos = endRoomWalls[whichWall, whereInWall].transform.position; 
+		Destroy(endRoomWalls[whichWall, whereInWall]);
+		var end = endRoomWalls[whichWall, whereInWall] = Instantiate(endObject, transform);
+		end.transform.position = pos;
+
+	}
 
 	private Graph GenerateGraph(uint length, uint complexity){ 
 		var output = new Graph{
 			root = new Node{
 				position = Vector2.zero, 
-				/*right = new Node{
-					position = Vector2.zero + Vector2.right * scale
-				}*/
 			},
 			nodes = new HashSet<Node>()
 		};
@@ -161,8 +167,8 @@ public class LevelManager : MonoBehaviour {
 	void BuildAllRooms(Node root){
 		if (root == null) return;
 
-		var room = new Room(roomSize, tileSet, transform, root, tileDistance);
-		root.room = room;
+		if (root.room == null)
+			root.room = new Room(roomSize, tileSet, transform, root, tileDistance);
 		
 		BuildAllRooms(root.up);
 		BuildAllRooms(root.down);
@@ -194,6 +200,7 @@ public class LevelManager : MonoBehaviour {
 
 	void MakeHallway(Node start, Node end, GraphDirections dir){
 		var hallwayPos = Random.Range(0, start.room.walls.GetLength(1));
+
 		var posStart = start.room.walls[(int)dir, hallwayPos].transform.position;
 		Destroy(start.room.walls[(int)dir, hallwayPos]);
 		start.room.walls[(int)dir, hallwayPos] = Instantiate(tileSet[TileType.FLOOR], transform);
@@ -212,10 +219,81 @@ public class LevelManager : MonoBehaviour {
 				var pos = i + (Vector3)(j.ToVector2() * tileDistance);
 				var wall = Instantiate(tileSet[TileType.WALL], transform);
 				wall.transform.position = pos;
+				if (dir == GraphDirections.UP || dir == GraphDirections.DOWN)
+					wall.transform.Rotate(new Vector3(0,0,90));
+			}
+		}
+
+		for (var i = hallwayPos - 1; i <= hallwayPos + 1; i++){
+			if (i < 0 || i == hallwayPos || i >= start.room.walls.GetLength(1) - 1){
+				if (i == hallwayPos) continue;
+
+				var corStartFloor = start.room.walls[(int)dir, i].transform.position;
+				var corEndFloor = end.room.walls[(int)dir.opposite(), i].transform.position;
+
+				Destroy(start.room.walls[(int)dir, i]);
+				start.room.walls[(int)dir, i] = Instantiate(tileSet[TileType.FLOOR], transform);
+				start.room.walls[(int)dir, i].transform.position = corStartFloor;
+
+				Destroy(end.room.walls[(int)dir.opposite(), i]);
+				end.room.walls[(int)dir.opposite(), i] = Instantiate(tileSet[TileType.FLOOR], transform);
+				end.room.walls[(int)dir.opposite(), i].transform.position = corEndFloor;
+
+			}
+			var corStart = start.room.walls[(int)dir, i].transform.position;
+			var corEnd = end.room.walls[(int)dir.opposite(), i].transform.position;
+
+			Destroy(start.room.walls[(int)dir, i]);
+			start.room.walls[(int)dir, i] = Instantiate(tileSet[TileType.CORNER], transform);
+			start.room.walls[(int)dir, i].transform.position = corStart;
+
+			Destroy(end.room.walls[(int)dir.opposite(), i]);
+			end.room.walls[(int)dir.opposite(), i] = Instantiate(tileSet[TileType.CORNER], transform);
+			end.room.walls[(int)dir.opposite(), i].transform.position = corEnd;
+
+			switch(dir){
+				case GraphDirections.UP:
+					if(i == hallwayPos - 1){
+							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,180));
+							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,-90));
+					}else if(i == hallwayPos + 1){
+							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,90));
+							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,0));
+					}
+					break;
+				case GraphDirections.DOWN:
+					if(i == hallwayPos - 1){
+							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,-90));
+							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,180));
+					}else if(i == hallwayPos + 1){
+							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,0));
+							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,90));
+					}
+					break;
+				case GraphDirections.LEFT:
+					if(i == hallwayPos - 1){
+							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,-90));
+							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,0));
+					}else if(i == hallwayPos + 1){
+							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,180));
+							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,90));
+					}
+					break;
+				case GraphDirections.RIGHT:
+					if(i == hallwayPos - 1){
+							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,-90));
+							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,0));
+					}else if(i == hallwayPos + 1){
+							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,90));
+							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,180));
+					}
+					break;
 			}
 		}
 	}
+	#endregion
 
+	#region Inner Classes
 	public enum GraphDirections{UP = 3, DOWN = 2, LEFT = 0, RIGHT = 1}
 
 	class Graph{
@@ -232,16 +310,12 @@ public class LevelManager : MonoBehaviour {
 		public Node right;
 	}
 
-	#endregion
-
 	[System.Serializable]
 	public struct LevelDescriptor{
 		public uint minDifficulty;
 		public uint maxDifficulty;
 		public uint length;
 		public uint complexity;
-
-		public int roomSeparation;
 		public Lore lore;
 		public List<Spawner> spawners; 
 	}
@@ -269,23 +343,29 @@ public class LevelManager : MonoBehaviour {
 				for (var j = 0; j < walls.GetLength(1); j++){
 					walls[i, j] = Instantiate(tileSet[TileType.WALL], transform);
 					Vector2 pos = Vector2.zero;
+					int lookRot = 0;
 
 					switch(i){
 						case 0: // Left Side
 							pos = floor[0, j].transform.position + (Vector3)(Vector2.left * tileDistance);
+							lookRot = 90;
 							break;
 						case 1: // Right Side
 							pos = floor[floor.GetLength(0) - 1, j].transform.position + (Vector3)(Vector2.right * tileDistance);
+							lookRot = -90;
 							break;
 						case 2: // Down Side
 							pos = floor[j, 0].transform.position + (Vector3)(Vector2.down * tileDistance);
+							lookRot = 180;
 							break;
 						case 3: // Up Side
 							pos = floor[j, floor.GetLength(1) - 1].transform.position + (Vector3)(Vector2.up * tileDistance);
+							lookRot = 0;
 							break;
 					}
 
 					walls[i, j].transform.position = pos;
+					walls[i, j].transform.Rotate(new Vector3(0,0,lookRot));
 				}
 			}
 
@@ -297,15 +377,19 @@ public class LevelManager : MonoBehaviour {
 			corners[0].transform.position = new Vector2(
 				(walls[0, 0].transform.position + (Vector3)(Vector2.up * tileDistance)).x,
 				(walls[3, 0].transform.position + (Vector3)(Vector2.right * tileDistance)).y);
+			corners[0].transform.Rotate(new Vector3(0,0,0));
 			corners[1].transform.position = new Vector2(
 				(walls[1, 0].transform.position + (Vector3)(Vector2.up * tileDistance)).x,
 				(walls[3, walls.GetLength(1) - 1].transform.position + (Vector3)(Vector2.left * tileDistance)).y);
+			corners[1].transform.Rotate(new Vector3(0,0,-90));
 			corners[2].transform.position = new Vector2(
 				(walls[0, walls.GetLength(1) - 1].transform.position + (Vector3)(Vector2.down * tileDistance)).x,
 				(walls[2, 0].transform.position + (Vector3)(Vector2.left * tileDistance)).y);
+			corners[2].transform.Rotate(new Vector3(0,0,90));
 			corners[3].transform.position = new Vector2(
 				(walls[2, walls.GetLength(1) - 1].transform.position + (Vector3)(Vector2.right * tileDistance)).x,
 				(walls[1, 0].transform.position + (Vector3)(Vector2.down * tileDistance)).y);
+			corners[3].transform.Rotate(new Vector3(0,0,180));
 		}
 	}
 
@@ -317,6 +401,7 @@ public class LevelManager : MonoBehaviour {
 		public TileType fst;
 		public GameObject snd;
 	}
+	#endregion
 }
 
 
@@ -362,5 +447,17 @@ static class MyExtensions{
 			default:
 				return null;
 		}
+	}
+
+	public static bool compareWithTolerance(this Vector2 lhs, Vector2 rhs, float tolerance){
+		return Vector2.Distance(lhs, rhs) < tolerance;
+	}
+
+	public static void LookRotation2D(this Transform transform, Vector2 look){
+		var quat = Quaternion.LookRotation(transform.position - (Vector3)look, Vector3.forward);
+        var quatVec = quat.eulerAngles;
+        quatVec = quatVec.Multiply(Vector3.forward);
+
+        transform.rotation = Quaternion.Euler(quatVec);
 	}
 }
