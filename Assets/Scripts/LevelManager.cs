@@ -10,19 +10,12 @@ public class LevelManager : MonoBehaviour {
 	public List<Pair> tileSetProto;
 	Dictionary<TileType, GameObject> tileSet = new Dictionary<TileType, GameObject>();
 
-	
-	public GameObject test;
-	public GameObject tile;
-	public GameObject startTile;
-	public GameObject specialTile;
-
 	public int roomSize = 1;
 	public float scale {
 		get{return roomSize + 1; }
-	}
-	
+	}	
 
-	IEnumerator<LevelDescriptor> levelEnumerator;	//public Dictionary<TileType, GameObject> tileSet = new Dictionary<TileType, GameObject>();
+	IEnumerator<LevelDescriptor> levelEnumerator;
 
 
 	void Start () {
@@ -35,46 +28,66 @@ public class LevelManager : MonoBehaviour {
 
 		var graph = GenerateGraph(25, 7);
 		testGraph(graph.root);
-
-		var start = Instantiate(startTile, transform);
-		start.transform.position = special[0].position;
-
-		for (var i = 1; i < special.Count(); i++){
-			var spec = Instantiate(specialTile, transform);
-			spec.transform.position = special[i].position;
-		}
+		BuildAllHallways(graph.root);
 	}
 
 	void testGraph(Node root){
 		if (root == null) return;
 
 		var room = new Room(roomSize, tileSet, transform, root);
-		
-		if (root.up != null){
-			var bridge = Instantiate(tile, room.floor[0,0].transform);
-			bridge.transform.position = root.position + Vector2.up * scale * 0.5f;
-			bridge.gameObject.name = "To Up";
-		}
-		if (root.down != null){
-			var bridge = Instantiate(tile, room.floor[0,0].transform);
-			bridge.transform.position = root.position + Vector2.down * scale * 0.5f;
-			bridge.gameObject.name = "To Down";
-		}
-		if (root.left != null){
-			var bridge = Instantiate(tile, room.floor[0,0].transform);
-			bridge.transform.position = root.position + Vector2.left * scale * 0.5f;
-			bridge.gameObject.name = "To Left";
-		}
-		if (root.right != null){
-			var bridge = Instantiate(tile, room.floor[0,0].transform);
-			bridge.transform.position = root.position + Vector2.right * scale * 0.5f;
-			bridge.gameObject.name = "To Right";
-		}
+		root.room = room;
 		
 		testGraph(root.up);
 		testGraph(root.down);
 		testGraph(root.left);
 		testGraph(root.right);
+	}
+
+	void BuildAllHallways(Node root){
+		if (root == null) return;
+
+		if (root.up != null){
+			MakeHallway(root, root.up, GraphDirections.UP);
+		}
+		if (root.down != null){
+			MakeHallway(root, root.down, GraphDirections.DOWN);
+		}
+		if (root.left != null){
+			MakeHallway(root, root.left, GraphDirections.LEFT);
+		}
+		if (root.right != null){
+			MakeHallway(root, root.right, GraphDirections.RIGHT);
+		}
+
+		BuildAllHallways(root.up);
+		BuildAllHallways(root.down);
+		BuildAllHallways(root.left);
+		BuildAllHallways(root.right);
+	}
+
+	void MakeHallway(Node start, Node end, GraphDirections dir){
+		var hallwayPos = Random.Range(0, start.room.walls.GetLength(1));
+		var posStart = start.room.walls[(int)dir, hallwayPos].transform.position;
+		Destroy(start.room.walls[(int)dir, hallwayPos]);
+		start.room.walls[(int)dir, hallwayPos] = Instantiate(tileSet[TileType.FLOOR], transform);
+		start.room.walls[(int)dir, hallwayPos].transform.position = posStart;
+
+		var posEnd = end.room.walls[(int)dir.opposite(), hallwayPos].transform.position;
+		Destroy(end.room.walls[(int)dir.opposite(), hallwayPos]);
+		end.room.walls[(int)dir.opposite(), hallwayPos] = Instantiate(tileSet[TileType.FLOOR], transform);
+		end.room.walls[(int)dir.opposite(), hallwayPos].transform.position = posEnd;
+
+		for (var i = posStart; (i - posStart).sqrMagnitude <= (posEnd - posStart).sqrMagnitude; i += (Vector3)(dir.ToVector2() * 0.6f)){
+			var hallFloorTile = Instantiate(tileSet[TileType.FLOOR], transform);
+			hallFloorTile.transform.position = i;
+
+			foreach (var j in dir.orthoganal()){
+				var pos = i + (Vector3)(j.ToVector2() * 0.6f);
+				var wall = Instantiate(tileSet[TileType.WALL], transform);
+				wall.transform.position = pos;
+			}
+		}
+
 	}
 
 	#region Level Generation
@@ -184,7 +197,7 @@ public class LevelManager : MonoBehaviour {
 		return output;
 	}
 
-	enum GraphDirections{UP, DOWN, LEFT, RIGHT}
+	public enum GraphDirections{UP = 3, DOWN = 2, LEFT = 0, RIGHT = 1}
 
 	class Graph{
 		public Node root;
@@ -237,16 +250,16 @@ public class LevelManager : MonoBehaviour {
 					Vector2 pos = Vector2.zero;
 
 					switch(i){
-						case 0:
+						case 0: // Left Side
 							pos = floor[0, j].transform.position + (Vector3)(Vector2.left * 0.6f);
 							break;
-						case 1:
+						case 1: // Right Side
 							pos = floor[floor.GetLength(0) - 1, j].transform.position + (Vector3)(Vector2.right * 0.6f);
 							break;
-						case 2:
+						case 2: // Down Side
 							pos = floor[j, 0].transform.position + (Vector3)(Vector2.down * 0.6f);
 							break;
-						case 3:
+						case 3: // Up Side
 							pos = floor[j, floor.GetLength(1) - 1].transform.position + (Vector3)(Vector2.up * 0.6f);
 							break;
 					}
@@ -282,5 +295,51 @@ public class LevelManager : MonoBehaviour {
 	public struct Pair{
 		public TileType fst;
 		public GameObject snd;
+	}
+}
+
+
+static class MyExtensions{
+	public static LevelManager.GraphDirections opposite(this LevelManager.GraphDirections dir){
+		switch (dir){
+			case LevelManager.GraphDirections.UP:
+				return LevelManager.GraphDirections.DOWN;
+			case LevelManager.GraphDirections.DOWN:
+				return LevelManager.GraphDirections.UP;
+			case LevelManager.GraphDirections.LEFT:
+				return LevelManager.GraphDirections.RIGHT;
+			case LevelManager.GraphDirections.RIGHT:
+				return LevelManager.GraphDirections.LEFT;
+			default:
+				return (LevelManager.GraphDirections)0;
+		}
+	}
+
+	public static Vector2 ToVector2(this LevelManager.GraphDirections dir){
+		switch (dir){
+			case LevelManager.GraphDirections.UP:
+				return Vector2.up;
+			case LevelManager.GraphDirections.DOWN:
+				return Vector2.down;
+			case LevelManager.GraphDirections.LEFT:
+				return Vector2.left;
+			case LevelManager.GraphDirections.RIGHT:
+				return Vector2.right;
+			default:
+				return Vector2.zero;
+		}
+	}
+
+	public static LevelManager.GraphDirections[] orthoganal(this LevelManager.GraphDirections dir){
+		switch (dir){
+			case LevelManager.GraphDirections.UP:
+			case LevelManager.GraphDirections.DOWN:
+				return new LevelManager.GraphDirections[]{LevelManager.GraphDirections.LEFT, LevelManager.GraphDirections.RIGHT};
+			case LevelManager.GraphDirections.LEFT:
+			case LevelManager.GraphDirections.RIGHT:
+				return new LevelManager.GraphDirections[]{LevelManager.GraphDirections.UP, LevelManager.GraphDirections.DOWN};
+			default:
+				return null;
+		}
 	}
 }
