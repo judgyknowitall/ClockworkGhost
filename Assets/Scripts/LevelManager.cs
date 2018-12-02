@@ -10,12 +10,13 @@ public class LevelManager : MonoBehaviour {
 	public List<Pair> tileSetProto;
 	Dictionary<TileType, GameObject> tileSet = new Dictionary<TileType, GameObject>();
 
-	public int roomSize = 1;
-	public float scale {
-		get{return roomSize + 1; }
-	}
+	public int roomSize = 1;	
 
-	public float tileDistance = 0.6f;	
+	public float tileDistance = 0.6f;
+
+	public float scale {
+		get{ return roomSize + separation + tileDistance; }
+	}	
 
 	IEnumerator<LevelDescriptor> levelEnumerator;
 
@@ -37,6 +38,7 @@ public class LevelManager : MonoBehaviour {
 				Destroy(child.gameObject);
 			}
 		}
+		separation = levelEnumerator.Current.roomSeparation;
 		GenerateLevel(levelEnumerator.Current);
 		return levelEnumerator.MoveNext();
 	}
@@ -84,7 +86,6 @@ public class LevelManager : MonoBehaviour {
 							current = nodeAtPos[0];
 						}else{
 							current = current.up;
-
 						}
 						break;
 					case GraphDirections.DOWN:
@@ -233,6 +234,8 @@ public class LevelManager : MonoBehaviour {
 		public uint maxDifficulty;
 		public uint length;
 		public uint complexity;
+
+		public int roomSeparation;
 		public Lore lore;
 		public List<Spawner> spawners; 
 	}
