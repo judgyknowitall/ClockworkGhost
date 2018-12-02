@@ -10,9 +10,12 @@ public class LevelManager : MonoBehaviour {
 	public List<Pair> tileSetProto;
 	Dictionary<TileType, GameObject> tileSet = new Dictionary<TileType, GameObject>();
 
-	public int roomSize = 1;	
+	public int roomSize = 1;
+	
 
 	public float tileDistance = 0.6f;
+
+	int separation = 3;
 
 	public float scale {
 		get{ return roomSize + separation + tileDistance; }
