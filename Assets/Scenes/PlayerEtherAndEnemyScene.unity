@@ -148,9 +148,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ether: 100
   head: {fileID: 417324684}
-  biteCircleRadius: 0.1
-  jumpPauseTime: 0
-  jumpTimeSteps: 0
+  biteCircleWidth: 0.1
+  jumpPauseTime: 2
+  jumpTimeSteps: 120
+  biteCircleMaxDistance: 100
   jumpCurve:
     serializedVersion: 2
     m_Curve:
@@ -196,6 +197,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+  spriteRenderer: {fileID: 334795233}
+  displayOrderOffset: 0
 --- !u!50 &334795231
 Rigidbody2D:
   serializedVersion: 4
@@ -223,7 +226,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 334795228}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.668, y: 0.504, z: 0.875}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 627200077}
@@ -666,6 +669,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stunned: 0
+  beingKilled: 0
   range: 0.3
   audioSource: {fileID: 1508350239}
   attackCooldownLength: 3
@@ -682,6 +686,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  spriteRenderer: {fileID: 2058975885}
+  displayOrderOffset: 0
 --- !u!50 &1508350237
 Rigidbody2D:
   serializedVersion: 4

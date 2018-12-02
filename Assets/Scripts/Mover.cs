@@ -8,7 +8,10 @@ public class Mover : MonoBehaviour
     public float speed = 1;
 
     private new Rigidbody2D rigidbody;
-    //private 
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
+
+    public int displayOrderOffset = 0;
 
     void Start ()
     {
@@ -17,7 +20,7 @@ public class Mover : MonoBehaviour
 	
 	void FixedUpdate()
     {
-        sortingOrder = Mathf.RoundToInt(transform.position.y * 100f) * -1;
+        spriteRenderer.sortingOrder = (Mathf.RoundToInt(transform.position.y * 100f) * -1)+displayOrderOffset;
     }
 
     public void Move(Vector2 direction)

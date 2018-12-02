@@ -149,6 +149,8 @@ public class Player : MonoBehaviour, IDamageable
         print("Begining Bite");
 
         spherecastResult.collider.isTrigger = true;
+        mover.displayOrderOffset += 1;
+        spherecastResult.collider.gameObject.GetComponent<Enemy>().beingKilled = true;
 
         Vector2 enemyPosition = spherecastResult.transform.position;
         Vector2 playerPosition = transform.position;
@@ -180,6 +182,7 @@ public class Player : MonoBehaviour, IDamageable
 
         biting = false;
         print("Jump Complete");
+        //mover.displayOrderOffset -= 1;
     }
 
     //private void Bite()
