@@ -29,21 +29,24 @@ public class LevelManager : MonoBehaviour {
 		}
 
 		levelEnumerator = levels.GetEnumerator();
-		levelEnumerator.MoveNext();
 
 		NextLevel();
 	}
 
 	[ContextMenu("Next Level")]
 	public bool NextLevel(){
+		var canAdvance = levelEnumerator.MoveNext();
+		if (!canAdvance) return canAdvance;
+
 		if (transform.childCount > 0){
 			foreach (Transform child in transform){
 				Destroy(child.gameObject);
 			}
 		}
+
 		separation = levelEnumerator.Current.roomSeparation;
 		GenerateLevel(levelEnumerator.Current);
-		return levelEnumerator.MoveNext();
+		return canAdvance;
 	}
 
 	#region Level Generation
@@ -59,14 +62,14 @@ public class LevelManager : MonoBehaviour {
 		var output = new Graph{
 			root = new Node{
 				position = Vector2.zero, 
-				right = new Node{
+				/*right = new Node{
 					position = Vector2.zero + Vector2.right * scale
-				}
+				}*/
 			},
 			nodes = new HashSet<Node>()
 		};
 
-		var current = output.root.right;
+		var current = output.root;
 		for (var i = 0; i < complexity; i++){
 			for (var j = 0; j < length; j++){
 				var dir = (GraphDirections)Random.Range(0, (int)System.Enum.GetValues(typeof(GraphDirections)).Length);
@@ -151,7 +154,7 @@ public class LevelManager : MonoBehaviour {
 				}
 			}
 			special.Add(current);
-			current = output.root.right;
+			current = output.root;
 		}
 		return output;
 	}
