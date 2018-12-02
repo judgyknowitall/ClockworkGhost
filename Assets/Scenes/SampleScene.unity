@@ -265,21 +265,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - minDifficulty: 0
-    maxDifficulty: 0
-    length: 0
-    complexity: 0
+    maxDifficulty: 4
+    length: 10
+    complexity: 3
     lore: {fileID: 0}
     spawners: []
   - minDifficulty: 0
     maxDifficulty: 0
-    length: 0
-    complexity: 0
+    length: 20
+    complexity: 6
     lore: {fileID: 0}
     spawners: []
   - minDifficulty: 0
     maxDifficulty: 0
-    length: 0
-    complexity: 0
+    length: 40
+    complexity: 12
     lore: {fileID: 0}
     spawners: []
   tileSetProto:
@@ -289,11 +289,6 @@ MonoBehaviour:
     snd: {fileID: 1232154207866632, guid: a2b5ce4d7f8c1410887f706195ccbdbb, type: 2}
   - fst: 2
     snd: {fileID: 1232154207866632, guid: e443176831d55409eae67a933769ca45, type: 2}
-  test: {fileID: 1401959582362352, guid: 3a7e77c431f394a98b130caa5b68fa07, type: 2}
-  tile: {fileID: 1232154207866632, guid: d962473c9d176458ab84af4a1783655a, type: 2}
-  startTile: {fileID: 1232154207866632, guid: a1302792552fc49ba8d14e2561c2dc26, type: 2}
-  specialTile: {fileID: 1232154207866632, guid: cbbe2296b8c8e4b1d8c70e20972f6a26,
-    type: 2}
   roomSize: 3
 --- !u!4 &1267776540
 Transform:
