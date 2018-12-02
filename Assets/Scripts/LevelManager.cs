@@ -5,23 +5,25 @@ using System.Linq;
 
 public class LevelManager : MonoBehaviour {
 
+	#region Public Fields
 	public List<LevelDescriptor> levels;
-
 	public List<Pair> tileSetProto;
-	Dictionary<TileType, GameObject> tileSet = new Dictionary<TileType, GameObject>();
-
 	public int roomSize = 1;
-	
-
 	public float tileDistance = 0.6f;
+	#endregion
 
+	#region Internal Data
 	int separation = 3;
-
-	public float scale {
+	float scale {
 		get{ return roomSize + separation + tileDistance; }
 	}	
+	#endregion
 
+	#region Generated Data Structures
 	IEnumerator<LevelDescriptor> levelEnumerator;
+	Dictionary<TileType, GameObject> tileSet = new Dictionary<TileType, GameObject>();
+	List<Node> special = new List<Node>();
+	#endregion
 
 	void Start () {
 		foreach (var p in tileSetProto){
@@ -55,8 +57,6 @@ public class LevelManager : MonoBehaviour {
 		BuildAllRooms(graph.root);
 		BuildAllHallways(graph.root);
 	}
-
-	List<Node> special = new List<Node>();
 
 	private Graph GenerateGraph(uint length, uint complexity){ 
 		var output = new Graph{
@@ -215,7 +215,9 @@ public class LevelManager : MonoBehaviour {
 			}
 		}
 	}
+	#endregion
 
+	#region Inner Classes
 	public enum GraphDirections{UP = 3, DOWN = 2, LEFT = 0, RIGHT = 1}
 
 	class Graph{
@@ -231,8 +233,6 @@ public class LevelManager : MonoBehaviour {
 		public Node left;
 		public Node right;
 	}
-
-	#endregion
 
 	[System.Serializable]
 	public struct LevelDescriptor{
@@ -317,6 +317,7 @@ public class LevelManager : MonoBehaviour {
 		public TileType fst;
 		public GameObject snd;
 	}
+	#endregion
 }
 
 

@@ -268,18 +268,21 @@ MonoBehaviour:
     maxDifficulty: 4
     length: 10
     complexity: 3
+    roomSeparation: 3
     lore: {fileID: 0}
     spawners: []
   - minDifficulty: 0
     maxDifficulty: 0
     length: 20
     complexity: 6
+    roomSeparation: 6
     lore: {fileID: 0}
     spawners: []
   - minDifficulty: 0
     maxDifficulty: 0
     length: 40
     complexity: 12
+    roomSeparation: 12
     lore: {fileID: 0}
     spawners: []
   tileSetProto:
@@ -289,7 +292,8 @@ MonoBehaviour:
     snd: {fileID: 1232154207866632, guid: a2b5ce4d7f8c1410887f706195ccbdbb, type: 2}
   - fst: 2
     snd: {fileID: 1232154207866632, guid: e443176831d55409eae67a933769ca45, type: 2}
-  roomSize: 3
+  roomSize: 16
+  tileDistance: 1
 --- !u!4 &1267776540
 Transform:
   m_ObjectHideFlags: 0
