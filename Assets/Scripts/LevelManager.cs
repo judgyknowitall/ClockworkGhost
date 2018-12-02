@@ -219,6 +219,8 @@ public class LevelManager : MonoBehaviour {
 				var pos = i + (Vector3)(j.ToVector2() * tileDistance);
 				var wall = Instantiate(tileSet[TileType.WALL], transform);
 				wall.transform.position = pos;
+				if (dir == GraphDirections.UP || dir == GraphDirections.DOWN)
+					wall.transform.Rotate(new Vector3(0,0,90));
 			}
 		}
 
@@ -234,6 +236,57 @@ public class LevelManager : MonoBehaviour {
 			Destroy(end.room.walls[(int)dir.opposite(), i]);
 			end.room.walls[(int)dir.opposite(), i] = Instantiate(tileSet[TileType.CORNER], transform);
 			end.room.walls[(int)dir.opposite(), i].transform.position = corEnd;
+
+			switch(dir){
+				case GraphDirections.UP:
+					switch(i){
+						case hallwayPos - 1:
+							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,180));
+							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,90));
+							break;
+						case hallwayPos + 1:
+							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,-90));
+							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,0));
+							break;
+					}
+					break;
+				case GraphDirections.DOWN:
+					switch(i){
+						case hallwayPos - 1:
+							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,90));
+							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,180));
+							break;
+						case hallwayPos + 1:
+							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,0));
+							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,-90));
+							break;
+					}
+					break;
+				case GraphDirections.LEFT:
+					switch(i){
+						case hallwayPos - 1:
+							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,180));
+							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,-90));
+							break;
+						case hallwayPos + 1:
+							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,90));
+							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,0));
+							break;
+					}
+					break;
+				case GraphDirections.RIGHT:
+					switch(i){
+						case hallwayPos - 1:
+							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,-90));
+							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,180));
+							break;
+						case hallwayPos + 1:
+							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,0));
+							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,90));
+							break;
+					}
+					break;
+			}
 		}
 	}
 	#endregion
