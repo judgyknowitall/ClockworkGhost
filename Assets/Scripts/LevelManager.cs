@@ -223,7 +223,7 @@ public class LevelManager : MonoBehaviour {
 		}
 
 		for (var i = hallwayPos - 1; i <= hallwayPos + 1; i++){
-			if (i < 0 || i == hallwayPos || i > start.room.walls.GetLength(1)) continue;
+			if (i < 0 || i == hallwayPos || i > start.room.walls.GetLength(1) - 1) continue;
 			var corStart = start.room.walls[(int)dir, i].transform.position;
 			var corEnd = end.room.walls[(int)dir.opposite(), i].transform.position;
 
@@ -322,7 +322,7 @@ public class LevelManager : MonoBehaviour {
 			corners[0].transform.position = new Vector2(
 				(walls[0, 0].transform.position + (Vector3)(Vector2.up * tileDistance)).x,
 				(walls[3, 0].transform.position + (Vector3)(Vector2.right * tileDistance)).y);
-			corners[0].transform.Rotate(new Vector3(0,0,-90));
+			corners[0].transform.Rotate(new Vector3(0,0,90));
 			corners[1].transform.position = new Vector2(
 				(walls[1, 0].transform.position + (Vector3)(Vector2.up * tileDistance)).x,
 				(walls[3, walls.GetLength(1) - 1].transform.position + (Vector3)(Vector2.left * tileDistance)).y);
@@ -330,7 +330,7 @@ public class LevelManager : MonoBehaviour {
 			corners[2].transform.position = new Vector2(
 				(walls[0, walls.GetLength(1) - 1].transform.position + (Vector3)(Vector2.down * tileDistance)).x,
 				(walls[2, 0].transform.position + (Vector3)(Vector2.left * tileDistance)).y);
-			corners[2].transform.Rotate(new Vector3(0,0,90));
+			corners[2].transform.Rotate(new Vector3(0,0,-90));
 			corners[3].transform.position = new Vector2(
 				(walls[2, walls.GetLength(1) - 1].transform.position + (Vector3)(Vector2.right * tileDistance)).x,
 				(walls[1, 0].transform.position + (Vector3)(Vector2.down * tileDistance)).y);
