@@ -589,7 +589,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 503413829}
   displayOrderOffset: 0
 --- !u!50 &870564501
 Rigidbody2D:
