@@ -10,11 +10,15 @@ public class Player : MonoBehaviour, IDamageable
     private Animator animator;
     public float ether;
 
+    [SerializeField]
+    private Head head;
+
     private bool biting = false;
 
-    [SerializeField] private float biteCircleRadius = 0.1f;
+    [SerializeField] private float biteCircleWidth = 0.1f;
     [SerializeField] private int jumpPauseTime;
     [SerializeField] private int jumpTimeSteps;
+    [SerializeField] private float biteCircleMaxDistance;
 
     public AnimationCurve jumpCurve = AnimationCurve.Linear(0, 0, 10, 10);
 
@@ -114,39 +118,68 @@ public class Player : MonoBehaviour, IDamageable
 
     private void BiteAttempt()
     {
-        //RaycastHit2D spherecastResult = Physics2D.CircleCast(transform.position, biteCircleRadius, Head.direction, 16f);
-        //if (spherecastResult.collider == null || spherecastResult.collider.gameObject.GetComponent<Enemy>() == null || !spherecastResult.collider.gameObject.GetComponent<Enemy>().stunned)
-        //    return;
-
-        //Bite(spherecastResult);
+        print("Attempting Bite");
+        Debug.DrawRay(transform.position, head.direction.normalized * biteCircleMaxDistance, Color.red, 5f);
+        RaycastHit2D[] spherecastResults = Physics2D.CircleCastAll(transform.position, biteCircleWidth, head.direction, biteCircleMaxDistance);
+        RaycastHit2D enemyToHit = new RaycastHit2D();
+        bool enemyFound = false;
+        foreach (RaycastHit2D hit in spherecastResults)
+        {
+            if (hit.collider == null || hit.collider.gameObject.GetComponent<Enemy>() == null || !hit.collider.gameObject.GetComponent<Enemy>().stunned)
+            {
+                continue;
+            }
+            enemyFound = true;
+            enemyToHit = hit;
+            break;
+        }
+        if (enemyFound)
+            Bite(enemyToHit);
+        else
+        {
+            print("No Bite Target Found");
+            return;
+        }
     }
 
     private void Bite(RaycastHit2D spherecastResult)
     {
         biting = true;
 
+        print("Begining Bite");
+
+        spherecastResult.collider.isTrigger = true;
+
         Vector2 enemyPosition = spherecastResult.transform.position;
         Vector2 playerPosition = transform.position;
 
         IEnumerator lungeAnimation = Jump(enemyPosition, playerPosition);
+        print("Begining Jump");
         StartCoroutine(lungeAnimation);
     }
 
     private IEnumerator Jump(Vector2 enemyPosition, Vector2 playerPosition)
     {
+        print("Breif Pause");
         for (int i = 0; i < jumpPauseTime; i++)
         {
             yield return new WaitForSeconds(1); 
         }
+        print("Done Pause");
 
         float distancePerFrame = Vector2.Distance(enemyPosition, playerPosition) / jumpTimeSteps;
         Vector2 direction = (enemyPosition - playerPosition).normalized;
 
+        print("Jumping");
         for (int i = 0; i < jumpTimeSteps; i++)
         {
+            print("Jump step" + i);
             transform.position = playerPosition + (direction * (distancePerFrame * i));
             yield return null;
         }
+
+        biting = false;
+        print("Jump Complete");
     }
 
     //private void Bite()

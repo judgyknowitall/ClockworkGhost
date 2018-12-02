@@ -8,6 +8,7 @@ public class Mover : MonoBehaviour
     public float speed = 1;
 
     private new Rigidbody2D rigidbody;
+    //private 
 
     void Start ()
     {
@@ -16,8 +17,8 @@ public class Mover : MonoBehaviour
 	
 	void FixedUpdate()
     {
-		
-	}
+        sortingOrder = Mathf.RoundToInt(transform.position.y * 100f) * -1;
+    }
 
     public void Move(Vector2 direction)
     {
