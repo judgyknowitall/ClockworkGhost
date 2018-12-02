@@ -8,12 +8,13 @@ public class LevelManager : MonoBehaviour {
 	#region Public Fields
 	public List<LevelDescriptor> levels;
 	public List<Pair> tileSetProto;
+	public GameObject endObject;
 	public int roomSize = 1;
+	public int separation = 3;
 	public float tileDistance = 0.6f;
 	#endregion
 
 	#region Internal Data
-	int separation = 3;
 	float scale {
 		get{ return roomSize + separation + tileDistance; }
 	}	
@@ -46,7 +47,6 @@ public class LevelManager : MonoBehaviour {
 			}
 		}
 
-		separation = levelEnumerator.Current.roomSeparation;
 		GenerateLevel(levelEnumerator.Current);
 		return canAdvance;
 	}
@@ -56,15 +56,21 @@ public class LevelManager : MonoBehaviour {
 		var graph = GenerateGraph(level.length, level.complexity);
 		BuildAllRooms(graph.root);
 		BuildAllHallways(graph.root);
+
+		var endRoomWalls = special[0].room.walls;
+		var whichWall = Random.Range(0, 4);
+		var whereInWall = Random.Range(0, endRoomWalls.GetLength(1));
+		var pos = endRoomWalls[whichWall, whereInWall].transform.position; 
+		Destroy(endRoomWalls[whichWall, whereInWall]);
+		var end = endRoomWalls[whichWall, whereInWall] = Instantiate(endObject, transform);
+		end.transform.position = pos;
+
 	}
 
 	private Graph GenerateGraph(uint length, uint complexity){ 
 		var output = new Graph{
 			root = new Node{
 				position = Vector2.zero, 
-				/*right = new Node{
-					position = Vector2.zero + Vector2.right * scale
-				}*/
 			},
 			nodes = new HashSet<Node>()
 		};
@@ -161,8 +167,8 @@ public class LevelManager : MonoBehaviour {
 	void BuildAllRooms(Node root){
 		if (root == null) return;
 
-		var room = new Room(roomSize, tileSet, transform, root, tileDistance);
-		root.room = room;
+		if (root.room == null)
+			root.room = new Room(roomSize, tileSet, transform, root, tileDistance);
 		
 		BuildAllRooms(root.up);
 		BuildAllRooms(root.down);
@@ -240,8 +246,6 @@ public class LevelManager : MonoBehaviour {
 		public uint maxDifficulty;
 		public uint length;
 		public uint complexity;
-
-		public int roomSeparation;
 		public Lore lore;
 		public List<Spawner> spawners; 
 	}
@@ -363,5 +367,9 @@ static class MyExtensions{
 			default:
 				return null;
 		}
+	}
+
+	public static bool compareWithTolerance(this Vector2 lhs, Vector2 rhs, float tolerance){
+		return Vector2.Distance(lhs, rhs) < tolerance;
 	}
 }
