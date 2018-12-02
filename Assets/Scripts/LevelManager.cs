@@ -35,7 +35,7 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	[ContextMenu("Next Level")]
-	bool NextLevel(){
+	public bool NextLevel(){
 		if (transform.childCount > 0){
 			foreach (Transform child in transform){
 				Destroy(child.gameObject);
