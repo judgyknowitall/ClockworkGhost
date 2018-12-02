@@ -10,7 +10,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     protected Player player;
 
     public bool stunned = false;
-    public bool beingKilled;
+    public bool beingKilled = false;
 
     void Awake()
     {
@@ -24,8 +24,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 	
 	protected virtual void FixedUpdate()
     {
-        if (beingKilled)
-            return;
+        if (stunned) { mover.Move(Vector2.zero); }
         Move();
     }
 

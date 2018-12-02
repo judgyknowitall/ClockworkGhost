@@ -16,11 +16,10 @@ public class Player : MonoBehaviour, IDamageable
     private bool biting = false;
 
     [SerializeField] private float biteCircleWidth = 0.1f;
-    [SerializeField] private int jumpPauseTime;
+    [SerializeField] private float jumpPauseTime;
     [SerializeField] private int jumpTimeSteps;
     [SerializeField] private float biteCircleMaxDistance;
-
-    public AnimationCurve jumpCurve = AnimationCurve.Linear(0, 0, 10, 10);
+    [SerializeField] private float etherFromBite;
 
     void Start ()
     {
@@ -37,27 +36,27 @@ public class Player : MonoBehaviour, IDamageable
     #region Abilities
     void UseAbilities()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             Debug.Log("Ability 1!");
             ConsumeEther(50);
         }
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             Debug.Log("Ability 2!");
             ConsumeEther(75);
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             Debug.Log("Ability 3!");
             ConsumeEther(100);
         }
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             Debug.Log("Ability 4!");
             ConsumeEther(200);
         }
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             Debug.Log("Ability 5!");
             ConsumeEther(400);
@@ -86,28 +85,28 @@ public class Player : MonoBehaviour, IDamageable
     {
         Vector2 movementDirection = Vector2.zero;
 
-        animator.SetBool("Left", Input.GetKey(KeyCode.LeftArrow));
-        animator.SetBool("Right", Input.GetKey(KeyCode.RightArrow));
-        animator.SetBool("Up", Input.GetKey(KeyCode.UpArrow));
-        animator.SetBool("Down", Input.GetKey(KeyCode.DownArrow));
+        animator.SetBool("Left", Input.GetKey(KeyCode.A));
+        animator.SetBool("Right", Input.GetKey(KeyCode.D));
+        animator.SetBool("Up", Input.GetKey(KeyCode.W));
+        animator.SetBool("Down", Input.GetKey(KeyCode.S));
 
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.W))
         {
             movementDirection += Vector2.up;
             animator.SetBool("Left", false);
             animator.SetBool("Right", false);
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.D))
         {
             movementDirection += Vector2.right;
         }
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.S))
         {
             movementDirection += Vector2.down;
             animator.SetBool("Left", false);
             animator.SetBool("Right", false);
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A))
         {
             movementDirection += Vector2.left;
         }
@@ -125,7 +124,7 @@ public class Player : MonoBehaviour, IDamageable
         bool enemyFound = false;
         foreach (RaycastHit2D hit in spherecastResults)
         {
-            if (hit.collider == null || hit.collider.gameObject.GetComponent<Enemy>() == null || !hit.collider.gameObject.GetComponent<Enemy>().stunned)
+            if (hit.collider == null || hit.collider.gameObject.GetComponent<Enemy>() == null )//|| !hit.collider.gameObject.GetComponent<Enemy>().stunned)
             {
                 continue;
             }
@@ -155,12 +154,12 @@ public class Player : MonoBehaviour, IDamageable
         Vector2 enemyPosition = spherecastResult.transform.position;
         Vector2 playerPosition = transform.position;
 
-        IEnumerator lungeAnimation = Jump(enemyPosition, playerPosition);
+        IEnumerator lungeAnimation = Jump(enemyPosition, playerPosition, spherecastResult);
         print("Begining Jump");
         StartCoroutine(lungeAnimation);
     }
 
-    private IEnumerator Jump(Vector2 enemyPosition, Vector2 playerPosition)
+    private IEnumerator Jump(Vector2 enemyPosition, Vector2 playerPosition, RaycastHit2D spherecastResult)
     {
         print("Breif Pause");
         for (int i = 0; i < jumpPauseTime; i++)
@@ -180,9 +179,18 @@ public class Player : MonoBehaviour, IDamageable
             yield return null;
         }
 
-        biting = false;
         print("Jump Complete");
-        //mover.displayOrderOffset -= 1;
+        FinishBite(spherecastResult);
+    }
+
+    private void FinishBite(RaycastHit2D spherecastResult)
+    {
+        spherecastResult.collider.gameObject.GetComponent<Enemy>().stunned=true;
+        Destroy(spherecastResult.collider.gameObject);
+        ether += etherFromBite;
+        biting = false;
+        mover.displayOrderOffset -= 1;
+        print("Finished Bite");
     }
 
     //private void Bite()
