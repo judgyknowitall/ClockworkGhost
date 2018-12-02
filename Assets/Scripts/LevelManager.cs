@@ -273,23 +273,29 @@ public class LevelManager : MonoBehaviour {
 				for (var j = 0; j < walls.GetLength(1); j++){
 					walls[i, j] = Instantiate(tileSet[TileType.WALL], transform);
 					Vector2 pos = Vector2.zero;
+					Vector2 lookRot = Vector2.up;
 
 					switch(i){
 						case 0: // Left Side
 							pos = floor[0, j].transform.position + (Vector3)(Vector2.left * tileDistance);
+							lookRot = Vector2.left;
 							break;
 						case 1: // Right Side
 							pos = floor[floor.GetLength(0) - 1, j].transform.position + (Vector3)(Vector2.right * tileDistance);
+							lookRot = Vector2.right;
 							break;
 						case 2: // Down Side
 							pos = floor[j, 0].transform.position + (Vector3)(Vector2.down * tileDistance);
+							lookRot = Vector2.down;
 							break;
 						case 3: // Up Side
 							pos = floor[j, floor.GetLength(1) - 1].transform.position + (Vector3)(Vector2.up * tileDistance);
+							lookRot = Vector2.up;
 							break;
 					}
 
 					walls[i, j].transform.position = pos;
+					walls[i, j].transform.LookRotation2D(lookRot);
 				}
 			}
 
@@ -301,15 +307,19 @@ public class LevelManager : MonoBehaviour {
 			corners[0].transform.position = new Vector2(
 				(walls[0, 0].transform.position + (Vector3)(Vector2.up * tileDistance)).x,
 				(walls[3, 0].transform.position + (Vector3)(Vector2.right * tileDistance)).y);
+			corners[0].transform.LookRotation2D(Vector2.left);
 			corners[1].transform.position = new Vector2(
 				(walls[1, 0].transform.position + (Vector3)(Vector2.up * tileDistance)).x,
 				(walls[3, walls.GetLength(1) - 1].transform.position + (Vector3)(Vector2.left * tileDistance)).y);
+			corners[1].transform.LookRotation2D(Vector2.right);
 			corners[2].transform.position = new Vector2(
 				(walls[0, walls.GetLength(1) - 1].transform.position + (Vector3)(Vector2.down * tileDistance)).x,
 				(walls[2, 0].transform.position + (Vector3)(Vector2.left * tileDistance)).y);
+			corners[2].transform.LookRotation2D(Vector2.up);
 			corners[3].transform.position = new Vector2(
 				(walls[2, walls.GetLength(1) - 1].transform.position + (Vector3)(Vector2.right * tileDistance)).x,
 				(walls[1, 0].transform.position + (Vector3)(Vector2.down * tileDistance)).y);
+			corners[3].transform.LookRotation2D(Vector2.down);
 		}
 	}
 
@@ -371,5 +381,13 @@ static class MyExtensions{
 
 	public static bool compareWithTolerance(this Vector2 lhs, Vector2 rhs, float tolerance){
 		return Vector2.Distance(lhs, rhs) < tolerance;
+	}
+
+	public static void LookRotation2D(this Transform transform, Vector2 look){
+		var quat = Quaternion.LookRotation(transform.position - (Vector3)look, Vector3.forward);
+        var quatVec = quat.eulerAngles;
+        quatVec = quatVec.Multiply(Vector3.forward);
+
+        transform.rotation = Quaternion.Euler(quatVec);
 	}
 }
