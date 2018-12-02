@@ -239,48 +239,40 @@ public class LevelManager : MonoBehaviour {
 
 			switch(dir){
 				case GraphDirections.UP:
-					switch(i){
-						case hallwayPos - 1:
+					if(i == hallwayPos - 1){
 							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,180));
 							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,90));
-							break;
-						case hallwayPos + 1:
+					}else if(i == hallwayPos + 1){
 							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,-90));
 							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,0));
 							break;
 					}
 					break;
 				case GraphDirections.DOWN:
-					switch(i){
-						case hallwayPos - 1:
+					if(i == hallwayPos - 1){
 							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,90));
 							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,180));
-							break;
-						case hallwayPos + 1:
+					}else if(i == hallwayPos + 1){
 							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,0));
 							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,-90));
 							break;
 					}
 					break;
 				case GraphDirections.LEFT:
-					switch(i){
-						case hallwayPos - 1:
+					if(i == hallwayPos - 1){
 							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,180));
 							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,-90));
-							break;
-						case hallwayPos + 1:
+					}else if(i == hallwayPos + 1){
 							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,90));
 							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,0));
 							break;
 					}
 					break;
 				case GraphDirections.RIGHT:
-					switch(i){
-						case hallwayPos - 1:
+					if(i == hallwayPos - 1){
 							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,-90));
 							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,180));
-							break;
-						case hallwayPos + 1:
+					}else if(i == hallwayPos + 1){
 							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,0));
 							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,90));
 							break;
