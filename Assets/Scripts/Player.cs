@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Mover))]
-[RequireComponent(typeof(Animator))]
 public class Player : MonoBehaviour, IDamageable
 {
     private Mover mover;
-    private Animator animator;
+    [SerializeField] private Animator animator;
     public float ether;
 
     [SerializeField]
@@ -24,7 +23,6 @@ public class Player : MonoBehaviour, IDamageable
     void Start ()
     {
         mover = GetComponent<Mover>();
-        animator = GetComponent<Animator>();
     }
 
     void FixedUpdate ()
@@ -109,6 +107,14 @@ public class Player : MonoBehaviour, IDamageable
         if (Input.GetKey(KeyCode.A))
         {
             movementDirection += Vector2.left;
+        }
+
+        if ((Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) || (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.S)))
+        {
+            animator.SetBool("Left", false);
+            animator.SetBool("Right", false);
+            animator.SetBool("Up", false);
+            animator.SetBool("Down", false);
         }
 
         return movementDirection.normalized;
