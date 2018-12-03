@@ -292,7 +292,7 @@ public class LevelManager : MonoBehaviour {
 							indexEnd = 1;
 							break;
 						case GraphDirections.RIGHT:
-							indexStart = 2;
+							indexStart = 1;
 							indexEnd = 0;
 							break;
 					}
