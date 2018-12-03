@@ -14,9 +14,13 @@ public class MoveToHallway : Goal {
 		}
 	}
 
+	/*public override Vector2 Do(){
+		data.newDependenciesExist = true;
+		return base.Do();
+	}*/
+
 	public MoveToHallway(GoalData data): base(data){
 		LevelManager.GraphDirections direction = LevelManager.GraphDirections.UP;
-
 
 		for (var i = 0; i < data.currentRoom.room.walls.GetLength(0); i++){
 			for (var j = 0; j < data.currentRoom.room.walls.GetLength(1); j++){
@@ -43,5 +47,6 @@ public class MoveToHallway : Goal {
 			data.hallWayDirection = direction;
 			achievedPositionChecker = new MoveToLocation(data, targetPosition);
 			dependencies.Add(achievedPositionChecker);
+			data.newDependenciesExist = true;
 	}
 }

@@ -8,10 +8,10 @@ public class AttackPlayer : Goal
     {
     }
 
-    public override bool isAchieved {get{ throw new System.NotImplementedException(); }}
+    public override bool isAchieved {get{ return true; }}
 
     public override Vector2 Do()
     {
-        throw new System.NotImplementedException();
+        return Vector2.zero;
     }
 }
