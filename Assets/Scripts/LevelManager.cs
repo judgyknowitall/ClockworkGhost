@@ -76,6 +76,8 @@ public class LevelManager : MonoBehaviour {
 			nodes = new HashSet<Node>()
 		};
 
+		output.nodes.Add(output.root);
+
 		var current = output.root;
 		for (var i = 0; i < complexity; i++){
 			for (var j = 0; j < length; j++){
