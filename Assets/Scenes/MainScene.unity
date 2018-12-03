@@ -311,19 +311,7 @@ MonoBehaviour:
   levels:
   - minDifficulty: 0
     maxDifficulty: 0
-    length: 10
-    complexity: 3
-    lore: {fileID: 0}
-    spawners: []
-  - minDifficulty: 0
-    maxDifficulty: 0
-    length: 10
-    complexity: 3
-    lore: {fileID: 0}
-    spawners: []
-  - minDifficulty: 0
-    maxDifficulty: 0
-    length: 10
+    length: 5
     complexity: 3
     lore: {fileID: 0}
     spawners: []
