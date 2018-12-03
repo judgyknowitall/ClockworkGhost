@@ -122,12 +122,17 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
     
-    public void Stun(){
+    public void Stun()
+    {
+        print("Stun!");
+        foreach (Animator animator in animators)
+        {
+            animator.SetBool("StunFlash", true);
+        }
         var enemyHits = Physics2D.OverlapCircleAll((Vector2)transform.position, stunRadius);
         var enemies = 
             (from e in enemyHits
             select e.GetComponent<Wolverine>()).ToArray();
-        print(enemyHits);
         foreach (var hit in enemies){
             if (hit == null) continue;
             print ("Hit" + hit.gameObject);
@@ -321,10 +326,6 @@ public class Player : MonoBehaviour, IDamageable
 
     private void FinishBite(RaycastHit2D spherecastResult)
     {
-        spherecastResult.collider.gameObject.GetComponent<Enemy>().stunned=true;
-        Destroy(spherecastResult.collider.gameObject);
-        ether += etherFromBite;
-        biting = false;
         foreach (Animator animator in animators)
         {
             animator.SetBool("RightJump", false);
@@ -332,6 +333,12 @@ public class Player : MonoBehaviour, IDamageable
             animator.SetBool("LeftJump", false);
             animator.SetBool("DownJump", false);
         }
+        spherecastResult.collider.gameObject.GetComponent<Enemy>().stunned=true;
+        Destroy(spherecastResult.collider.gameObject);
+
+        //Once dead ??
+        ether += etherFromBite;
+        biting = false;
         mover.displayOrderOffset -= 1;
     }
 
