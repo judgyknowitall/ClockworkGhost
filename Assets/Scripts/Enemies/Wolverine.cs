@@ -20,6 +20,8 @@ public class Wolverine : Enemy
 
     [SerializeField] private uint damage = 15;
 
+    Queue<Goal> plan;
+
     private float attackCooldown = 0;
 
     private Vector2 back = Vector2.right;
@@ -30,8 +32,13 @@ public class Wolverine : Enemy
         stunned = false;
     }
 
+    void Update(){
+        if (stunned) print ("I am so stunned right now");
+    }
+
     protected override void FixedUpdate()
-    {        if (animator.GetBool("Left")){
+    {        
+        if (animator.GetBool("Left")){
             back = Vector2.right;
         }else{
             back = Vector2.left;
@@ -69,7 +76,9 @@ public class Wolverine : Enemy
 
     protected override Vector2 DecideMovementDirection()
     {
-        var tmpDir = player.transform.position - transform.position;
+        if (stunned) return Vector2.zero;
+        return Vector2.zero;
+        /*var tmpDir = player.transform.position - transform.position;
         Vector2 ouput;
 
         var hitPlayer = Physics2D.Raycast(transform.position, tmpDir, Mathf.Infinity, ~(1 << 8));
@@ -105,8 +114,6 @@ public class Wolverine : Enemy
             back = Vector2.right;
         }
 
-        return ouput;
-
-
+        return ouput;*/
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Linq;
 
 [RequireComponent(typeof(Mover))]
 public class Player : MonoBehaviour, IDamageable
@@ -32,6 +33,11 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private float batsEtherCost = 50;
     [SerializeField] private LayerMask yourLayer;
     [SerializeField] private LayerMask batIgnoreLayer;
+
+    [Header("Stunning")]
+    [SerializeField] private float stunEtherCost = 60;
+    [SerializeField] private float stunTime = 10;
+    [SerializeField] private float stunRadius = 10;
 
     public event System.Action OnDeath;
 
@@ -65,10 +71,11 @@ public class Player : MonoBehaviour, IDamageable
             Bats();
             ConsumeEther(batsEtherCost);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha2) && !biting)
         {
-            Debug.Log("Ability 2!");
-            ConsumeEther(75);
+            Debug.Log("Wow! Stunning!");
+            Stun();
+            ConsumeEther(stunEtherCost);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
@@ -113,6 +120,28 @@ public class Player : MonoBehaviour, IDamageable
                 animator.SetBool("Bat", false);
             }
         }
+    }
+    
+    public void Stun(){
+        var enemyHits = Physics2D.OverlapCircleAll((Vector2)transform.position, stunRadius);
+        var enemies = 
+            (from e in enemyHits
+            select e.GetComponent<Wolverine>()).ToArray();
+        print(enemyHits);
+        foreach (var hit in enemies){
+            if (hit == null) continue;
+            print ("Hit" + hit.gameObject);
+        }
+        foreach (var e in enemies){
+            if (e == null) continue;
+            e.stunned = true;
+            StartCoroutine(EndStun(e, stunTime));
+        }
+    }
+
+    IEnumerator EndStun(Wolverine w, float waitForSeconds){
+        yield return new WaitForSeconds(waitForSeconds);
+        w.stunned = false;
     }
     #endregion
 
