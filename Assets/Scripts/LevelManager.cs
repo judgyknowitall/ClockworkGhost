@@ -12,10 +12,11 @@ public class LevelManager : MonoBehaviour {
 	public int roomSize = 1;
 	public int separation = 3;
 	public float tileDistance = 0.6f;
-	#endregion
+    public int[] enemiesToSpaw = { 1, 1, 1, 2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0, 0, 0, 0 };
+    #endregion
 
-	#region Internal Data
-	float scale {
+    #region Internal Data
+    float scale {
 		get{ return roomSize + separation + tileDistance; }
 	}
 
@@ -190,7 +191,6 @@ public class LevelManager : MonoBehaviour {
 		if (root.room == null)
 			root.room = new Room(roomSize, tileSet, transform, root, tileDistance);
 
-		int[] enemiesToSpaw = {1, 1, 1, 2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0, 0, 0, 0};
 		for (var i = 0; i < enemiesToSpaw[(int)Random.Range(0, enemiesToSpaw.Length)]; i++){
 			var enem = Instantiate(enemy, transform);
 			enem.transform.position = root.position;
