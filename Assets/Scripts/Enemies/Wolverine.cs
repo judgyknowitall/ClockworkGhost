@@ -60,7 +60,13 @@ public class Wolverine : Enemy
         var tmpDir = player.transform.position - transform.position;
         Vector2 ouput;
 
-        var maybeHit = Physics2D.CircleCast((Vector2)transform.position, 1.1f, tmpDir, lookDistance);
+        var hitPlayer = Physics2D.Raycast(transform.position, tmpDir, Mathf.Infinity, ~(1 << 8));
+        if (hitPlayer.collider != null){
+            Debug.DrawRay(transform.position, tmpDir, Color.green);
+            if (hitPlayer.collider.gameObject.tag == "Player") return tmpDir;
+        }
+
+        var maybeHit = Physics2D.Raycast(transform.position, tmpDir, lookDistance, 1 << 8);
         if (maybeHit.collider == null) {
             //Debug.DrawLine(transform.position, transform.position + tmpDir.normalized * 0.1f + tmpDir.normalized * lookDistance, Color.green, 0.5f);
             //Debug.Log(maybeHit.collider);
