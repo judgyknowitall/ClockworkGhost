@@ -14,8 +14,9 @@ public class Wolverine : Enemy
 
     [Header("Attack Cooldown Time")]
     [SerializeField] private float attackCooldownLength = 2;
-    [SerializeField]
-    private float paceFrequency;
+    [SerializeField] private float paceFrequency;
+
+    [SerializeField] private float lookDistance;
 
     [SerializeField] private uint damage = 15;
 
@@ -46,7 +47,7 @@ public class Wolverine : Enemy
             attackCooldown = attackCooldownLength;
             Debug.Log("WOOF!");
         }
-    }
+    }  
 
     public override void DoDamage(uint strength)
     {
@@ -56,21 +57,20 @@ public class Wolverine : Enemy
 
     protected override Vector2 DecideMovementDirection()
     {
-        /*Vector2 direction = Vector2.left;
-        if (Mathf.Sin(paceFrequency * Time.time) > 0)
-        {
-            direction = direction * -1;
-            animator.SetBool("Right", true);
-            animator.SetBool("Left", false);
-        }
-        else
-        {
-            animator.SetBool("Left", true);
-            animator.SetBool("Right", false);
-        }
+        var tmpDir = player.transform.position - transform.position;
 
-        return direction;*/
-
-        return player.transform.position - transform.position;
+        var maybeHit = Physics2D.Raycast(transform.position, tmpDir, lookDistance);
+        if (maybeHit.collider == null) return tmpDir;
+        else{
+            var tryDirection = Physics2D.Raycast(transform.position, Vector2.up, lookDistance);
+            if (tryDirection.collider != null) return Vector2.up;
+            tryDirection = Physics2D.Raycast(transform.position, Vector2.down, lookDistance);
+            if (tryDirection.collider != null) return Vector2.down;
+            tryDirection = Physics2D.Raycast(transform.position, Vector2.left, lookDistance);
+            if (tryDirection.collider != null) return Vector2.left;
+            tryDirection = Physics2D.Raycast(transform.position, Vector2.right, lookDistance);
+            if (tryDirection.collider != null) return Vector2.right;
+            else return Vector2.zero;
+        }
     }
 }
