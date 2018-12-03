@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114224184905506810}
   - component: {fileID: 82975620336555906}
   - component: {fileID: 61909205756782342}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wolverine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 4293387643637438}
   - component: {fileID: 212366525789372938}
   - component: {fileID: 95243195822525664}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
