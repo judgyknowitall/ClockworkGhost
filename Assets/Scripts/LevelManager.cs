@@ -368,7 +368,7 @@ public class LevelManager : MonoBehaviour {
 		public HashSet<Node> nodes;
 	}
 
-	class Node{
+	public class Node{
 		public Vector2 position;
 		public Room room;
 		public Node up;
@@ -387,7 +387,7 @@ public class LevelManager : MonoBehaviour {
 		public List<Spawner> spawners; 
 	}
 
-	class Room{
+	public class Room{
 		public GameObject[,] floor;
 		public GameObject[,] walls;
 		public GameObject[] corners;

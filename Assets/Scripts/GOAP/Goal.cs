@@ -2,12 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract class Goal{
+public abstract class Goal{
 	abstract public bool isAchieved{ get; }
 
-	abstract public Vector2 Do();
+	virtual public Vector2 Do(){
+		return Vector2.zero;
+	}
 
 	public List<Goal> dependencies;
 
 	public GoalData data;
+
+	public Goal(GoalData data){
+		this.data = data;
+		dependencies = new List<Goal>();
+	}
 }

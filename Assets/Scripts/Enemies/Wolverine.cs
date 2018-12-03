@@ -20,7 +20,10 @@ public class Wolverine : Enemy
 
     [SerializeField] private uint damage = 15;
 
-    Queue<Goal> plan;
+    Stack<Goal> plan = new Stack<Goal>();
+
+    Goal currentGoal;
+    GoalData brain;
 
     private float attackCooldown = 0;
 
@@ -30,6 +33,32 @@ public class Wolverine : Enemy
     {
         base.Start();
         stunned = false;
+
+        brain = new GoalData{
+            self = transform,
+            player = this.player,
+            levelManager = FindObjectOfType<LevelManager>()
+        };
+        plan.Push(new KillPlayer(brain));
+
+    }
+
+    void NextGoal(){
+        var top = plan.Peek();
+        bool allGood = false;
+
+        while (!allGood){
+            allGood = true;
+            foreach (var dep in top.dependencies){
+                if (dep.isAchieved) continue;
+                plan.Push(dep);
+                allGood = false;
+            }
+            top = plan.Peek();
+        }
+
+        plan.Pop();
+        currentGoal = plan.Peek();
     }
 
     void Update(){
@@ -77,7 +106,16 @@ public class Wolverine : Enemy
     protected override Vector2 DecideMovementDirection()
     {
         if (stunned) return Vector2.zero;
-        return Vector2.zero;
+        
+        if (!currentGoal.isAchieved || !brain.newDependenciesExist){
+            return currentGoal.Do();
+        }else{
+            NextGoal();
+            brain.newDependenciesExist = false;
+            return Vector2.zero;
+        }
+
+
         /*var tmpDir = player.transform.position - transform.position;
         Vector2 ouput;
 

@@ -7,18 +7,17 @@ class FindPlayer : Goal{
 
 	override public bool isAchieved{
 		get {
-			var tmpDir = data.player.transform.position - data.self.position;
-			var maybeHit = Physics2D.Raycast(data.self.position, tmpDir, data.lookDistance, 1 << 8);
-			if (maybeHit.collider != null){
-				if (maybeHit.collider.gameObject.tag == "Player") return true;
+			foreach (var dep in dependencies) {
+				if (!dep.isAchieved) return false;
 			}
 
-			return false;
+			return true;
 		}
 	}
 
-	public FindPlayer(GoalData data){
-		this.data = data;
-		dependencies = new List();
+	public  FindPlayer(GoalData data): base(data){
+
+		dependencies.Add(new Explore(data));
+		//dependencies.Add(new CheckForPlayer(data));
 	}
 }
