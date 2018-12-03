@@ -46,7 +46,8 @@ public class LevelManager : MonoBehaviour {
 				Destroy(child.gameObject);
 			}
 		}
-
+		
+		special.Clear();
 		GenerateLevel(levelEnumerator.Current);
 		return canAdvance;
 	}
@@ -139,7 +140,6 @@ public class LevelManager : MonoBehaviour {
 						}
 						break;
 					case GraphDirections.RIGHT:
-
 						newPos = current.position + Vector2.right * scale;
 						nodeAtPos = 
 							(from node in output.nodes
