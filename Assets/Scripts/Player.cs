@@ -6,7 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour, IDamageable
 {
     private Mover mover;
-    [SerializeField] private Animator animator;
+    [SerializeField] private Animator[] animators;
     public float ether;
 
     [SerializeField]
@@ -83,38 +83,41 @@ public class Player : MonoBehaviour, IDamageable
     {
         Vector2 movementDirection = Vector2.zero;
 
-        animator.SetBool("Left", Input.GetKey(KeyCode.A));
-        animator.SetBool("Right", Input.GetKey(KeyCode.D));
-        animator.SetBool("Up", Input.GetKey(KeyCode.W));
-        animator.SetBool("Down", Input.GetKey(KeyCode.S));
+        foreach (Animator animator in animators)
+        {
+            animator.SetBool("Left", Input.GetKey(KeyCode.A));
+            animator.SetBool("Right", Input.GetKey(KeyCode.D));
+            animator.SetBool("Up", Input.GetKey(KeyCode.W));
+            animator.SetBool("Down", Input.GetKey(KeyCode.S));
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            movementDirection += Vector2.up;
-            animator.SetBool("Left", false);
-            animator.SetBool("Right", false);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            movementDirection += Vector2.right;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            movementDirection += Vector2.down;
-            animator.SetBool("Left", false);
-            animator.SetBool("Right", false);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            movementDirection += Vector2.left;
-        }
+            if (Input.GetKey(KeyCode.W))
+            {
+                movementDirection += Vector2.up;
+                animator.SetBool("Left", false);
+                animator.SetBool("Right", false);
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                movementDirection += Vector2.right;
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                movementDirection += Vector2.down;
+                animator.SetBool("Left", false);
+                animator.SetBool("Right", false);
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                movementDirection += Vector2.left;
+            }
 
-        if ((Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) || (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.S)))
-        {
-            animator.SetBool("Left", false);
-            animator.SetBool("Right", false);
-            animator.SetBool("Up", false);
-            animator.SetBool("Down", false);
+            if ((Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) || (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.S)))
+            {
+                animator.SetBool("Left", false);
+                animator.SetBool("Right", false);
+                animator.SetBool("Up", false);
+                animator.SetBool("Down", false);
+            }
         }
 
         return movementDirection.normalized;
@@ -168,7 +171,10 @@ public class Player : MonoBehaviour, IDamageable
     private IEnumerator Jump(Vector2 enemyPosition, Vector2 playerPosition, RaycastHit2D spherecastResult)
     {
         print("Breif Pause");
-        animator.SetBool("RedFlash",true);
+        foreach (Animator animator in animators)
+        {
+            animator.SetBool("RedFlash", true);
+        }
         for (int i = 0; i < jumpPauseTime; i++)
         {
             yield return new WaitForSeconds(1); 
@@ -196,7 +202,10 @@ public class Player : MonoBehaviour, IDamageable
         Destroy(spherecastResult.collider.gameObject);
         ether += etherFromBite;
         biting = false;
-        animator.SetBool("Red Flash Done", true);
+        foreach (Animator animator in animators)
+        {
+            animator.SetBool("Red Flash Done", true);
+        }
         mover.displayOrderOffset -= 1;
         print("Finished Bite");
     }
