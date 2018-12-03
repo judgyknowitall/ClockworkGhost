@@ -13,37 +13,43 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Right
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Up
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Down
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
+  - m_Name: Bat
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   - m_Name: RedFlash
-    m_Type: 9
+    m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: Red Flash Done
-    m_Type: 9
+    m_Controller: {fileID: 0}
+  - m_Name: RedFlashIdle
+    m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -136,6 +142,15 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Up
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: RedFlash
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: RedFlashIdle
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Bat
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102629815523021256}
   m_Solo: 0
@@ -147,6 +162,36 @@ AnimatorStateTransition:
   m_ExitTime: 0.75
   m_HasExitTime: 0
   m_HasFixedDuration: 0
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 0
+--- !u!1101 &1101414007898360722
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Bat
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: RedFlash
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: RedFlashIdle
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 1102918512693119320}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 0.75
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 0
@@ -208,6 +253,15 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Right
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: RedFlash
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: RedFlashIdle
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Bat
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102550078070665228}
   m_Solo: 0
@@ -228,7 +282,13 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: RedFlashIdle
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: RedFlash
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102214394961309188}
   m_Solo: 0
@@ -253,6 +313,12 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: RedFlash
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Bat
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: RedFlashIdle
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102332110807122062}
   m_Solo: 0
@@ -266,7 +332,7 @@ AnimatorStateTransition:
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
+  m_CanTransitionToSelf: 0
 --- !u!1101 &1101750946663572154
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -276,6 +342,15 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Down
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: RedFlash
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: RedFlashIdle
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Bat
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102162048478444388}
@@ -298,8 +373,11 @@ AnimatorStateTransition:
   m_PrefabInternal: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: Red Flash Done
+  - m_ConditionMode: 2
+    m_ConditionEvent: RedFlashIdle
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: RedFlash
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102836071293142274}
@@ -324,6 +402,15 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Left
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: RedFlash
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: RedFlashIdle
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Bat
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102716471775025246}
@@ -595,6 +682,31 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &1102918512693119320
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Bat
+  m_Speed: 6
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 0e35bbf2ffd987e48be3b11d3dec03b0, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1107 &1107023149843526498
 AnimatorStateMachine:
   serializedVersion: 5
@@ -623,13 +735,13 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102716471775025246}
-    m_Position: {x: -504, y: 132, z: 0}
+    m_Position: {x: -600, y: 132, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102550078070665228}
     m_Position: {x: 12, y: 132, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102294696053040528}
-    m_Position: {x: -756, y: 132, z: 0}
+    m_Position: {x: -864, y: 132, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102836071293142274}
     m_Position: {x: -276, y: 456, z: 0}
@@ -641,16 +753,19 @@ AnimatorStateMachine:
     m_Position: {x: -276, y: -108, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102162048478444388}
-    m_Position: {x: -264, y: 240, z: 0}
+    m_Position: {x: -276, y: 276, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102629815523021256}
     m_Position: {x: -276, y: -12, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102332110807122062}
-    m_Position: {x: 48, y: 252, z: 0}
+    m_Position: {x: -12, y: 228, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102214394961309188}
     m_Position: {x: 120, y: 336, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 1102918512693119320}
+    m_Position: {x: -540, y: 288, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 1101945312117804274}
@@ -658,6 +773,7 @@ AnimatorStateMachine:
   - {fileID: 1101750946663572154}
   - {fileID: 1101403227593498270}
   - {fileID: 1101667454821703360}
+  - {fileID: 1101414007898360722}
   m_EntryTransitions:
   - {fileID: 1109653937871583318}
   m_StateMachineTransitions: {}

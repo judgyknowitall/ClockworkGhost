@@ -604,6 +604,7 @@ MonoBehaviour:
   animators:
   - {fileID: 1605884238}
   - {fileID: 1128537502}
+  shadow: {fileID: 1838556475}
   ether: 100
   head: {fileID: 1838556477}
   biteCircleWidth: 0.5

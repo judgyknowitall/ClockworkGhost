@@ -7,6 +7,9 @@ public class Player : MonoBehaviour, IDamageable
 {
     private Mover mover;
     [SerializeField] private Animator[] animators;
+
+    [SerializeField] private GameObject shadow;
+
     public float ether;
 
     [SerializeField]
@@ -36,7 +39,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            Debug.Log("Ability 1!");
+            Bats();
             ConsumeEther(50);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -59,6 +62,16 @@ public class Player : MonoBehaviour, IDamageable
             Debug.Log("Ability 5!");
             ConsumeEther(400);
         }
+    }
+
+    public void Bats()
+    {
+        foreach (Animator animator in animators)
+        {
+            shadow.SetActive(false);
+            animator.SetBool("Bat", true);
+        }
+        shadow.SetActive(true);
     }
     #endregion
 
@@ -184,6 +197,15 @@ public class Player : MonoBehaviour, IDamageable
         float distancePerFrame = Vector2.Distance(enemyPosition, playerPosition) / jumpTimeSteps;
         Vector2 direction = (enemyPosition - playerPosition).normalized;
 
+        foreach (Animator animator in animators)
+        {
+            animator.SetBool("RedFlash", false);
+        }
+        foreach (Animator animator in animators)
+        {
+            animator.SetBool("RedFlashIdle", true);
+        }
+
         print("Jumping");
         for (int i = 0; i < jumpTimeSteps; i++)
         {
@@ -204,72 +226,11 @@ public class Player : MonoBehaviour, IDamageable
         biting = false;
         foreach (Animator animator in animators)
         {
-            animator.SetBool("Red Flash Done", true);
+            animator.SetBool("RedFlashIdle", false);
         }
         mover.displayOrderOffset -= 1;
         print("Finished Bite");
     }
-
-    //private void Bite()
-    //{
-    //    if (biting) return;
-
-    //    print("Biting attempt");
-
-    //    var hits = Physics2D.CircleCastAll(transform.position, biteRange, Vector2.zero);
-    //    RaycastHit2D closest = new RaycastHit2D();
-    //    var shortestDistance = Mathf.Infinity;
-    //    foreach (RaycastHit2D hit in hits)
-    //    {
-    //        if (hit.transform.gameObject.GetComponent<Enemy>() == null)
-    //            continue;
-
-    //        var hitDistance = Vector2.Distance(hit.transform.position, transform.position);
-    //        if (hitDistance < shortestDistance)
-    //        {
-    //            shortestDistance = hitDistance;
-    //            closest = hit;
-    //        }
-    //    }
-
-    //    if (shortestDistance == Mathf.Infinity)
-    //        return;
-
-    //    print("Target Found");
-
-    //    transform.position = closest.transform.position;
-
-    //    ether += 10;
-
-    //    closest.transform.gameObject.GetComponent<Enemy>().DoDamage(999);
-
-    //Vector2 movementDirection = (closest.transform.position - transform.position).normalized;
-    //mover.speed = 0;
-    //mover.Move(movementDirection);
-    //biting = true;
-
-    //IEnumerator coroutine = BiteJump(closest, shortestDistance, movementDirection, transform.position);
-    //StartCoroutine(coroutine);
-    //}
-
-    //private IEnumerator BiteJump(RaycastHit2D closest, float shortestDistance, Vector2 enemyPrevPos, Vector2 movementDirection)
-    //{
-    //    print("Begining Jump Coroutine");
-    //    print("Distance" + Vector2.Distance(transform.position, enemyPrevPos));
-    //    while (Vector2.Distance(transform.position, enemyPrevPos) > biteGrabArea)
-    //    {
-    //        var t = Mathf.InverseLerp(shortestDistance, biteGrabArea, Vector2.Distance(transform.position, enemyPrevPos));
-    //        Mathf.Clamp(t, 0.1f, 1f);
-    //        print("t" + t);
-    //        mover.speed = jumpCurve.Evaluate(t) * jumpSpeed;
-    //        mover.Move(movementDirection);
-    //        print("Mover SPeed" + mover.speed);
-    //        yield return null;
-    //    }
-    //    mover.speed = 1;
-    //    biting = false;
-    //    print("Exiting Jump Coroutine");
-    //}
 
     #endregion
 

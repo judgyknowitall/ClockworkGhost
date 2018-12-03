@@ -58,18 +58,33 @@ public class Wolverine : Enemy
     protected override Vector2 DecideMovementDirection()
     {
         var tmpDir = player.transform.position - transform.position;
+        Vector2 ouput;
 
         var maybeHit = Physics2D.CircleCast((Vector2)transform.position, 1.1f, tmpDir, lookDistance);
         if (maybeHit.collider == null) {
             //Debug.DrawLine(transform.position, transform.position + tmpDir.normalized * 0.1f + tmpDir.normalized * lookDistance, Color.green, 0.5f);
             //Debug.Log(maybeHit.collider);
-            return tmpDir;
+            ouput = tmpDir;
         }
         else {
             //Debug.DrawLine(transform.position, transform.position + tmpDir.normalized * 0.1f + tmpDir.normalized * lookDistance, Color.red, 0.5f);
             //Debug.Log(maybeHit.collider);
-            return Random.insideUnitCircle.normalized;
+            ouput = Random.insideUnitCircle.normalized;
         }
-        
+
+        if (Vector2.Dot(ouput, Vector2.left) > 0.5f)
+        {
+            animator.SetBool("Left", false);
+            animator.SetBool("Right", true);
+        }
+        else
+        {
+            animator.SetBool("Right", false);
+            animator.SetBool("Left", true);
+        }
+
+        return ouput;
+
+
     }
 }
