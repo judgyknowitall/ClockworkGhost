@@ -7,6 +7,8 @@ using System.Linq;
 [RequireComponent(typeof(Mover))]
 public class Player : MonoBehaviour, IDamageable
 {
+    public BoxCollider2D myHitbox;
+
     private Mover mover;
     [Header("Componenets and Objects!")]
     [SerializeField] private Animator[] animators;
@@ -124,7 +126,6 @@ public class Player : MonoBehaviour, IDamageable
     
     public void Stun()
     {
-        print("Stun!");
         foreach (Animator animator in animators)
         {
             animator.SetBool("StunFlash", true);
@@ -135,7 +136,6 @@ public class Player : MonoBehaviour, IDamageable
             select e.GetComponent<Wolverine>()).ToArray();
         foreach (var hit in enemies){
             if (hit == null) continue;
-            print ("Hit" + hit.gameObject);
         }
         foreach (var e in enemies){
             if (e == null) continue;

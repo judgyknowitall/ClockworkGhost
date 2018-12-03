@@ -15,6 +15,8 @@ public class Wolverine : Enemy
     [Header("Attack Cooldown Time")]
     [SerializeField] private float attackCooldownLength = 2;
     [SerializeField] private float paceFrequency;
+    [SerializeField] private BoxCollider2D leftAttackCollider;
+    [SerializeField] private BoxCollider2D rightAttackCollider;
 
     [SerializeField] private float lookDistance;
 
@@ -66,7 +68,6 @@ public class Wolverine : Enemy
     }*/
 
     void Update(){
-        if (stunned) print ("I am so stunned right now");
         /*if (startRoom != null && brain == null){
             brain = new GoalData{
                 self = transform,
@@ -93,6 +94,7 @@ public class Wolverine : Enemy
         }
         base.FixedUpdate();
         if (beingKilled) return;
+        animator.SetBool("LeftAttack", animator.GetCurrentAnimatorStateInfo(0).IsName("Base_Layer.AttackLeft"));
         Attack();
     }
 
@@ -100,14 +102,28 @@ public class Wolverine : Enemy
     {
         if (beingKilled) { return; }
         attackCooldown -= Time.deltaTime;
-        if (Vector2.Distance(transform.position, player.transform.position) <= range && attackCooldown <= 0)
+        if (attackCooldown <= 0)
         {
-            player.DoDamage(damage);
-            if (audioSource != null)
-                audioSource.Play();
-            attackCooldown = attackCooldownLength;
+            if (leftAttackCollider.IsTouching(player.myHitbox))
+                Swipe(true);
+            else if (leftAttackCollider.IsTouching(player.myHitbox))
+                Swipe(false);
         }
-    }  
+    }
+
+    private void Swipe(bool left)
+    {
+        player.DoDamage(damage);
+        if (left)
+            animator.SetBool("LeftAttack", true);
+        else
+            animator.SetBool("RightAttack", true);
+
+        if (audioSource != null)
+            audioSource.Play();
+
+        attackCooldown = attackCooldownLength;
+    }
 
     public override void DoDamage(float strength)
     {
@@ -115,7 +131,8 @@ public class Wolverine : Enemy
         if (health < 0) Destroy(this.gameObject);
     }
 
-    public bool CanAttack(){
+    public bool CanAttack()
+    {
         var playerPos = (Vector2)player.transform.position;
         var tolerance = Vector2.Dot(playerPos.normalized, back);
 
