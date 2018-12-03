@@ -54,8 +54,8 @@ public class LevelManager : MonoBehaviour {
 	#region Level Generation
 	public void GenerateLevel(LevelDescriptor level){ 
 		var graph = GenerateGraph(level.length, level.complexity);
-		BuildAllRooms(graph.root);
-		BuildAllHallways(graph.root);
+		BuildAllRooms(graph.root.right);
+		BuildAllHallways(graph.root.right);
 
 		var endRoomWalls = special[0].room.walls;
 		var whichWall = Random.Range(0, 4);
@@ -225,20 +225,69 @@ public class LevelManager : MonoBehaviour {
 		}
 
 		for (var i = hallwayPos - 1; i <= hallwayPos + 1; i++){
-			if (i < 0 || i == hallwayPos || i >= start.room.walls.GetLength(1) - 1){
+			if (i < 0 || i == hallwayPos || i > start.room.walls.GetLength(1) - 1){
 				if (i == hallwayPos) continue;
 
-				var corStartFloor = start.room.walls[(int)dir, i].transform.position;
-				var corEndFloor = end.room.walls[(int)dir.opposite(), i].transform.position;
+				int indexStart = 0;
+				int indexEnd = 0;
+				float rot = 0;
 
-				Destroy(start.room.walls[(int)dir, i]);
-				start.room.walls[(int)dir, i] = Instantiate(tileSet[TileType.FLOOR], transform);
-				start.room.walls[(int)dir, i].transform.position = corStartFloor;
+				if (i < 0){
+					switch(dir){
+						case GraphDirections.UP:
+							indexStart = 0;
+							indexEnd = 2;
+							rot = 90;
+							break;
+						case GraphDirections.DOWN:
+							indexStart = 3;
+							indexEnd = 2;
+							rot = 90;
+							break;
+						case GraphDirections.LEFT:
+							indexStart = 2;
+							indexEnd = 0;
+							rot = 0;
+							break;
+						case GraphDirections.RIGHT:
+							indexStart = 2;
+							indexEnd = 0;
+							rot = 0;
+							break;
+					}
+				}else if (i >= start.room.walls.GetLength(1)){
+					switch(dir){
+						case GraphDirections.UP:
+							indexStart = 1;
+							indexEnd = 3;
+							rot = 90;
+							break;
+						case GraphDirections.DOWN:
+							indexStart = 3;
+							indexEnd = 1;
+							rot = 90;
+							break;
+						case GraphDirections.LEFT:
+							indexStart = 2;
+							indexEnd = 3;
+							rot = 0;
+							break;
+						case GraphDirections.RIGHT:
+							indexStart = 3;
+							indexEnd = 2;
+							rot = 0;
+							break;
+					}
+				}
 
-				Destroy(end.room.walls[(int)dir.opposite(), i]);
-				end.room.walls[(int)dir.opposite(), i] = Instantiate(tileSet[TileType.FLOOR], transform);
-				end.room.walls[(int)dir.opposite(), i].transform.position = corEndFloor;
+				var corStartWall = start.room.corners[indexStart].transform.position;
+				var corEndWall = end.room.corners[indexEnd].transform.position;
 
+				Destroy(start.room.corners[indexStart]);
+
+				Destroy(end.room.corners[indexEnd]);
+
+				continue;
 			}
 			var corStart = start.room.walls[(int)dir, i].transform.position;
 			var corEnd = end.room.walls[(int)dir.opposite(), i].transform.position;
@@ -281,8 +330,8 @@ public class LevelManager : MonoBehaviour {
 					break;
 				case GraphDirections.RIGHT:
 					if(i == hallwayPos - 1){
-							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,-90));
-							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,0));
+							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,0));
+							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,-90));
 					}else if(i == hallwayPos + 1){
 							start.room.walls[(int)dir, i].transform.Rotate(new Vector3(0,0,90));
 							end.room.walls[(int)dir.opposite(), i].transform.Rotate(new Vector3(0,0,180));
