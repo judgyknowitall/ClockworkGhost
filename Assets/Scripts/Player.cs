@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Mover))]
 public class Player : MonoBehaviour, IDamageable
@@ -30,6 +31,8 @@ public class Player : MonoBehaviour, IDamageable
     private float batsEndTime;
     [SerializeField] private float batsEtherCost = 50;
 
+    public event System.Action OnDeath;
+
     void Start ()
     {
         mover = GetComponent<Mover>();
@@ -40,6 +43,16 @@ public class Player : MonoBehaviour, IDamageable
         Move();
         UseAbilities();
         if (bats) Bats();
+        Death();
+    }
+
+    private void Death()
+    {
+        if (ether <= 0)
+        {
+            if (OnDeath != null)
+                OnDeath();
+        }
     }
 
     #region Abilities
