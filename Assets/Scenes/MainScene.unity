@@ -152,34 +152,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 20463238062924690, guid: 03ddc39337c5e4d22b69d5a9eed06f78,
-        type: 2}
-      propertyPath: orthographic size
-      value: 4.21875
-      objectReference: {fileID: 0}
-    - target: {fileID: 212222288432901176, guid: 03ddc39337c5e4d22b69d5a9eed06f78,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 9681213dc0e34b24f8294daab23ff8b7,
-        type: 3}
-    - target: {fileID: 4369182846724086, guid: 03ddc39337c5e4d22b69d5a9eed06f78, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4369182846724086, guid: 03ddc39337c5e4d22b69d5a9eed06f78, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1377631018598676, guid: 03ddc39337c5e4d22b69d5a9eed06f78, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114436239920235360, guid: 03ddc39337c5e4d22b69d5a9eed06f78,
-        type: 2}
-      propertyPath: ether
-      value: 250
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03ddc39337c5e4d22b69d5a9eed06f78, type: 2}
   m_IsPrefabAsset: 0
