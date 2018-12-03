@@ -311,8 +311,38 @@ MonoBehaviour:
   levels:
   - minDifficulty: 0
     maxDifficulty: 0
+    length: 1
+    complexity: 1
+    lore: {fileID: 0}
+    spawners: []
+  - minDifficulty: 0
+    maxDifficulty: 0
+    length: 3
+    complexity: 3
+    lore: {fileID: 0}
+    spawners: []
+  - minDifficulty: 0
+    maxDifficulty: 0
     length: 5
     complexity: 3
+    lore: {fileID: 0}
+    spawners: []
+  - minDifficulty: 0
+    maxDifficulty: 0
+    length: 10
+    complexity: 3
+    lore: {fileID: 0}
+    spawners: []
+  - minDifficulty: 0
+    maxDifficulty: 0
+    length: 1
+    complexity: 1
+    lore: {fileID: 0}
+    spawners: []
+  - minDifficulty: 0
+    maxDifficulty: 0
+    length: 10
+    complexity: 5
     lore: {fileID: 0}
     spawners: []
   tileSetProto:
