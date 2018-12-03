@@ -162,6 +162,26 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 61909205756782342, guid: bf5560f7ca90513449e4581840d850d9,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: -0.1487996
+      objectReference: {fileID: 0}
+    - target: {fileID: 61909205756782342, guid: bf5560f7ca90513449e4581840d850d9,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 1.1425921
+      objectReference: {fileID: 0}
+    - target: {fileID: 61909205756782342, guid: bf5560f7ca90513449e4581840d850d9,
+        type: 2}
+      propertyPath: m_Offset.x
+      value: 0.18010676
+      objectReference: {fileID: 0}
+    - target: {fileID: 61909205756782342, guid: bf5560f7ca90513449e4581840d850d9,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 1.0078065
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf5560f7ca90513449e4581840d850d9, type: 2}
   m_IsPrefabAsset: 0
@@ -376,14 +396,14 @@ MonoBehaviour:
     spawners: []
   - minDifficulty: 0
     maxDifficulty: 0
-    length: 0
-    complexity: 0
+    length: 10
+    complexity: 3
     lore: {fileID: 0}
     spawners: []
   - minDifficulty: 0
     maxDifficulty: 0
-    length: 0
-    complexity: 0
+    length: 10
+    complexity: 3
     lore: {fileID: 0}
     spawners: []
   tileSetProto:

@@ -5,10 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class NextLevel : MonoBehaviour
 {
-    [SerializeField] private LevelManager lm;
-
     void OnTriggerEnter2D(Collider2D col)
     {
-        lm.NextLevel();
+        FindObjectOfType<LevelManager>().NextLevel();
+        FindObjectOfType<Player>().transform.position = Vector2.zero;
     }
 }
