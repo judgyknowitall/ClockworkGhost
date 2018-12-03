@@ -33,6 +33,9 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private LayerMask yourLayer;
     [SerializeField] private LayerMask batIgnoreLayer;
 
+    [Header("Stunning")]
+    [SerializeField] private float stunEtherCost = 55;
+
     public event System.Action OnDeath;
 
     void Start ()
