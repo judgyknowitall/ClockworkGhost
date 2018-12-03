@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Mover))]
 public abstract class Enemy : MonoBehaviour, IDamageable
 {
-    private Mover mover;
+    protected Mover mover;
     protected float health;
     protected Player player;
 
@@ -36,6 +36,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     }
 
     protected abstract Vector2 DecideMovementDirection();
+    protected void SetMoveSpeed(float speed){
+        mover.speed = speed;
+    }
 
     public abstract void DoDamage(uint strength);
 

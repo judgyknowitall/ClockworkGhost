@@ -56,7 +56,7 @@ public class Wolverine : Enemy
 
     protected override Vector2 DecideMovementDirection()
     {
-        Vector2 direction = Vector2.left;
+        /*Vector2 direction = Vector2.left;
         if (Mathf.Sin(paceFrequency * Time.time) > 0)
         {
             direction = direction * -1;
@@ -69,6 +69,8 @@ public class Wolverine : Enemy
             animator.SetBool("Right", false);
         }
 
-        return direction;
+        return direction;*/
+
+        return player.transform.position - transform.position;
     }
 }
