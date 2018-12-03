@@ -6,22 +6,29 @@ using UnityEngine;
 public class Player : MonoBehaviour, IDamageable
 {
     private Mover mover;
+    [Header("Componenets and Objects!")]
     [SerializeField] private Animator[] animators;
-
     [SerializeField] private GameObject shadow;
+    [SerializeField] private Head head;
 
+    [Header("Attributes")]
     public float ether;
 
-    [SerializeField]
-    private Head head;
-
     private bool biting = false;
-
+    [Header("Bite")]
     [SerializeField] private float biteCircleWidth = 0.1f;
     [SerializeField] private float jumpPauseTime;
     [SerializeField] private int jumpTimeSteps;
     [SerializeField] private float biteCircleMaxDistance;
     [SerializeField] private float etherFromBite;
+
+
+    private bool bats = false;
+    [Header("Bats")]
+    [SerializeField] private float batsTime;
+    [SerializeField] private float speedMultiplier = 5;
+    private float batsEndTime;
+    [SerializeField] private float batsEtherCost = 50;
 
     void Start ()
     {
@@ -32,15 +39,16 @@ public class Player : MonoBehaviour, IDamageable
     {
         Move();
         UseAbilities();
-	}
+        if (bats) Bats();
+    }
 
     #region Abilities
     void UseAbilities()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1) && !biting)
         {
             Bats();
-            ConsumeEther(50);
+            ConsumeEther(batsEtherCost);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
@@ -66,12 +74,28 @@ public class Player : MonoBehaviour, IDamageable
 
     public void Bats()
     {
-        foreach (Animator animator in animators)
+        if (!bats)
         {
+            bats = true;
+            mover.speed = mover.speed * speedMultiplier;
+            foreach (Animator animator in animators)
+            {
+                animator.SetBool("Bat", true);
+            }
             shadow.SetActive(false);
-            animator.SetBool("Bat", true);
+            batsEndTime = Time.time + batsTime;
         }
-        shadow.SetActive(true);
+
+        if (batsEndTime < Time.time)
+        {
+            shadow.SetActive(true);
+            bats = false;
+            mover.speed = mover.speed / speedMultiplier;
+            foreach (Animator animator in animators)
+            {
+                animator.SetBool("Bat", false);
+            }
+        }
     }
     #endregion
 
@@ -81,7 +105,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (biting) return;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !bats)
         {
             print("Space");
             BiteAttempt();
@@ -136,6 +160,7 @@ public class Player : MonoBehaviour, IDamageable
         return movementDirection.normalized;
     }
 
+    #region Bite
 
     private void BiteAttempt()
     {
@@ -234,13 +259,17 @@ public class Player : MonoBehaviour, IDamageable
 
     #endregion
 
-    public void DoDamage(uint strength)
+    #endregion
+
+    #region Ether
+    public void DoDamage(float strength)
     {
         ether = ether - strength;
     }
 
-    public void ConsumeEther(uint cost)
+    public void ConsumeEther(float cost)
     {
         DoDamage(cost);
     }
+    #endregion
 }

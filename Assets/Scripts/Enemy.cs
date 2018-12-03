@@ -40,7 +40,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         mover.speed = speed;
     }
 
-    public abstract void DoDamage(uint strength);
+    public abstract void DoDamage(float strength);
 
     #endregion
 }

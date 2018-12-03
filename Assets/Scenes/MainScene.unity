@@ -605,13 +605,16 @@ MonoBehaviour:
   - {fileID: 1605884238}
   - {fileID: 1128537502}
   shadow: {fileID: 1838556475}
-  ether: 100
   head: {fileID: 1838556477}
+  ether: 100
   biteCircleWidth: 0.5
   jumpPauseTime: 0.08
   jumpTimeSteps: 10
   biteCircleMaxDistance: 3
   etherFromBite: 20
+  batsTime: 1
+  speedMultiplier: 2
+  batsEtherCost: 50
 --- !u!114 &870564500
 MonoBehaviour:
   m_ObjectHideFlags: 0

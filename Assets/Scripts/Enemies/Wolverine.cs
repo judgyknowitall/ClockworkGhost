@@ -49,7 +49,7 @@ public class Wolverine : Enemy
         }
     }  
 
-    public override void DoDamage(uint strength)
+    public override void DoDamage(float strength)
     {
         health -= strength;
         if (health < 0) Destroy(this.gameObject);
