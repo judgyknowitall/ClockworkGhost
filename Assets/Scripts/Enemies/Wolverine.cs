@@ -10,7 +10,7 @@ public class Wolverine : Enemy
     [Header("Attack Sound")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private Animator animator;
-
+    
 
     [Header("Attack Cooldown Time")]
     [SerializeField] private float attackCooldownLength = 2;
@@ -124,7 +124,13 @@ public class Wolverine : Enemy
 
     protected override Vector2 DecideMovementDirection()
     {
-        if (stunned) return Vector2.zero;
+        if (stunned)
+        {
+            animator.SetBool("Left", false);
+            animator.SetBool("Right", false);
+            animator.SetBool("Stun", true);
+            return Vector2.zero;
+        } 
         
         /*if (!currentGoal.isAchieved && !brain.newDependenciesExist){
             //print("Doing " + currentGoal + " because " + brain.newDependenciesExist);
