@@ -276,7 +276,7 @@ Rigidbody2D:
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!61 &61888998479946120
@@ -478,6 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d36af6f8f6e3e4a3ab7311f61363d6d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myHitbox: {fileID: 61888998479946120}
   animators:
   - {fileID: 95712563337083570}
   - {fileID: 95899538202934458}

@@ -113,11 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!61 &147898820 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 61888998479946120, guid: 03ddc39337c5e4d22b69d5a9eed06f78,
-    type: 2}
-  m_PrefabInternal: {fileID: 332333299}
 --- !u!1001 &332333299
 Prefab:
   m_ObjectHideFlags: 0
@@ -157,11 +152,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114436239920235360, guid: 03ddc39337c5e4d22b69d5a9eed06f78,
-        type: 2}
-      propertyPath: myHitbox
-      value: 
-      objectReference: {fileID: 147898820}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03ddc39337c5e4d22b69d5a9eed06f78, type: 2}
   m_IsPrefabAsset: 0
@@ -544,7 +534,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4120998339419240, guid: bf5560f7ca90513449e4581840d850d9, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 4120998339419240, guid: bf5560f7ca90513449e4581840d850d9, type: 2}
       propertyPath: m_LocalPosition.y
@@ -574,7 +564,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 82975620336555906, guid: bf5560f7ca90513449e4581840d850d9, type: 2}
+    - target: {fileID: 114224184905506810, guid: bf5560f7ca90513449e4581840d850d9,
+        type: 2}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf5560f7ca90513449e4581840d850d9, type: 2}
   m_IsPrefabAsset: 0
