@@ -60,11 +60,26 @@ public class LevelManager : MonoBehaviour {
 
 		var endRoomWalls = special[0].room.walls;
 		var whichWall = Random.Range(0, 4);
+		
 		var whereInWall = Random.Range(0, endRoomWalls.GetLength(1));
 		var pos = endRoomWalls[whichWall, whereInWall].transform.position; 
 		Destroy(endRoomWalls[whichWall, whereInWall]);
 		var end = endRoomWalls[whichWall, whereInWall] = Instantiate(endObject, transform);
 		end.transform.position = pos;
+		switch(whichWall){
+			case 0:
+				end.transform.Rotate(new Vector3(0,0,90));
+				break;
+			case 1:
+				end.transform.Rotate(new Vector3(0,0,-90));
+				break;
+			case 2:
+				end.transform.Rotate(new Vector3(0,0,180));
+				break;
+			case 3:
+				end.transform.Rotate(new Vector3(0,0,90));
+				break;
+		}
 
 	}
 
