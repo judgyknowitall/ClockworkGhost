@@ -107,7 +107,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.18010676, y: -0.1487996}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -118,7 +118,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0078065, y: 1.1425921}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!82 &82975620336555906
 AudioSource:
@@ -126,7 +126,7 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1441050445019064}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 31369f0670d20b14b998373860c477d9, type: 3}
@@ -246,11 +246,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stunned: 0
   beingKilled: 0
-  range: 0.3
+  range: 1
   audioSource: {fileID: 82975620336555906}
   animator: {fileID: 95243195822525664}
   attackCooldownLength: 3
   paceFrequency: 2.79
+  lookDistance: 1
   damage: 20
 --- !u!114 &114314120022537558
 MonoBehaviour:
@@ -263,7 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e68d505d33e7c50459caa7f33223a008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 3
   spriteRenderer: {fileID: 212366525789372938}
   displayOrderOffset: 0
 --- !u!212 &212366525789372938
