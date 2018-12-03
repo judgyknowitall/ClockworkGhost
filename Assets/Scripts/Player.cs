@@ -7,6 +7,8 @@ using System.Linq;
 [RequireComponent(typeof(Mover))]
 public class Player : MonoBehaviour, IDamageable
 {
+    public BoxCollider2D myHitbox;
+
     private Mover mover;
     [Header("Componenets and Objects!")]
     [SerializeField] private Animator[] animators;
