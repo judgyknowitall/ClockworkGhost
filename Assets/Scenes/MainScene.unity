@@ -152,11 +152,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114224184905506810, guid: bf5560f7ca90513449e4581840d850d9,
-        type: 2}
-      propertyPath: paceFrequency
-      value: 2.79
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf5560f7ca90513449e4581840d850d9, type: 2}
   m_IsPrefabAsset: 0
@@ -212,11 +207,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 224096917865463844, guid: 8ff43a8bfadab714282e6a56abe5c377,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 224096917865463844, guid: 8ff43a8bfadab714282e6a56abe5c377,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -306,29 +296,6 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4011707834065528, guid: 8ff43a8bfadab714282e6a56abe5c377, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -219
-      objectReference: {fileID: 0}
-    - target: {fileID: 4011707834065528, guid: 8ff43a8bfadab714282e6a56abe5c377, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 2.0125
-      objectReference: {fileID: 0}
-    - target: {fileID: 224835111683967586, guid: 8ff43a8bfadab714282e6a56abe5c377,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.05341094
-      objectReference: {fileID: 0}
-    - target: {fileID: 224653718991351940, guid: 8ff43a8bfadab714282e6a56abe5c377,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.05341094
-      objectReference: {fileID: 0}
-    - target: {fileID: 224609552857329574, guid: 8ff43a8bfadab714282e6a56abe5c377,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.05341094
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ff43a8bfadab714282e6a56abe5c377, type: 2}
