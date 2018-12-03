@@ -11,8 +11,11 @@ public class Wolverine : Enemy
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private Animator animator;
 
+
     [Header("Attack Cooldown Time")]
     [SerializeField] private float attackCooldownLength = 2;
+    [SerializeField]
+    private float paceFrequency;
 
     [SerializeField] private uint damage = 15;
 
@@ -53,6 +56,19 @@ public class Wolverine : Enemy
 
     protected override Vector2 DecideMovementDirection()
     {
-        return Vector2.zero;
+        Vector2 direction = Vector2.left;
+        if (Mathf.Sin(paceFrequency * Time.time) > 0)
+        {
+            direction = direction * -1;
+            animator.SetBool("Right", true);
+            animator.SetBool("Left", false);
+        }
+        else
+        {
+            animator.SetBool("Left", true);
+            animator.SetBool("Right", false);
+        }
+
+        return direction;
     }
 }

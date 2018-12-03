@@ -55,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1441050445019064}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.183, y: -0.049, z: 0}
+  m_LocalPosition: {x: -2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4293387643637438}
@@ -107,7 +107,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0012122989, y: 0.003636837}
+  m_Offset: {x: 0.18010676, y: -0.1487996}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -118,7 +118,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6387497, y: 0.6387496}
+  m_Size: {x: 1.0078065, y: 1.1425921}
   m_EdgeRadius: 0
 --- !u!82 &82975620336555906
 AudioSource:
@@ -248,7 +248,7 @@ MonoBehaviour:
   beingKilled: 0
   range: 0.3
   audioSource: {fileID: 82975620336555906}
-  animator: {fileID: 0}
+  animator: {fileID: 95243195822525664}
   attackCooldownLength: 3
   damage: 20
 --- !u!114 &114314120022537558
@@ -300,7 +300,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300010, guid: b96d7009dd7b39b4891fe307ffa215bd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a77fc95bc0cea9e48a84e99af4fa5304, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
