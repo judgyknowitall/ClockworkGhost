@@ -356,7 +356,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stunned: 1
   beingKilled: 0
-  ready: 0
   range: 1
   audioSource: {fileID: 82975620336555906}
   animator: {fileID: 95243195822525664}

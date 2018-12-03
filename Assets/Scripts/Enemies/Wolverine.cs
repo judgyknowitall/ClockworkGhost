@@ -66,7 +66,6 @@ public class Wolverine : Enemy
     }*/
 
     void Update(){
-        if (stunned) print ("I am so stunned right now");
         /*if (startRoom != null && brain == null){
             brain = new GoalData{
                 self = transform,
@@ -115,7 +114,9 @@ public class Wolverine : Enemy
         if (health < 0) Destroy(this.gameObject);
     }
 
-    public bool CanAttack(){
+    public bool CanAttack()
+    {
+        if (stunned) return true;
         var playerPos = (Vector2)player.transform.position;
         var tolerance = Vector2.Dot(playerPos.normalized, back);
 

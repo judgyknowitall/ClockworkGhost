@@ -124,7 +124,6 @@ public class Player : MonoBehaviour, IDamageable
     
     public void Stun()
     {
-        print("Stun!");
         foreach (Animator animator in animators)
         {
             animator.SetBool("StunFlash", true);
@@ -135,7 +134,6 @@ public class Player : MonoBehaviour, IDamageable
             select e.GetComponent<Wolverine>()).ToArray();
         foreach (var hit in enemies){
             if (hit == null) continue;
-            print ("Hit" + hit.gameObject);
         }
         foreach (var e in enemies){
             if (e == null) continue;
