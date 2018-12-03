@@ -122,7 +122,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4120998339419240, guid: bf5560f7ca90513449e4581840d850d9, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4120998339419240, guid: bf5560f7ca90513449e4581840d850d9, type: 2}
       propertyPath: m_LocalPosition.y
@@ -150,6 +150,17 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4120998339419240, guid: bf5560f7ca90513449e4581840d850d9, type: 2}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212366525789372938, guid: bf5560f7ca90513449e4581840d850d9,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300002, guid: a77fc95bc0cea9e48a84e99af4fa5304,
+        type: 3}
+    - target: {fileID: 114224184905506810, guid: bf5560f7ca90513449e4581840d850d9,
+        type: 2}
+      propertyPath: lookDistance
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -428,7 +439,7 @@ MonoBehaviour:
   - {fileID: 1605884238}
   - {fileID: 1128537502}
   ether: 100
-  head: {fileID: 0}
+  head: {fileID: 1838556477}
   biteCircleWidth: 0.5
   jumpPauseTime: 0.08
   jumpTimeSteps: 10
@@ -497,6 +508,8 @@ GameObject:
   - component: {fileID: 1128537501}
   - component: {fileID: 1128537503}
   - component: {fileID: 1128537502}
+  - component: {fileID: 1128537505}
+  - component: {fileID: 1128537504}
   m_Layer: 0
   m_Name: Shadow
   m_TagString: Untagged
@@ -581,6 +594,40 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1128537504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1128537500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e68d505d33e7c50459caa7f33223a008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  spriteRenderer: {fileID: 1128537503}
+  displayOrderOffset: 0
+--- !u!50 &1128537505
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1128537500}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1605884236
 GameObject:
   m_ObjectHideFlags: 0
