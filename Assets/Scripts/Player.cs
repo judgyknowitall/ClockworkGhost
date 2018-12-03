@@ -30,6 +30,8 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private float speedMultiplier = 5;
     private float batsEndTime;
     [SerializeField] private float batsEtherCost = 50;
+    [SerializeField] private LayerMask yourLayer;
+    [SerializeField] private LayerMask batIgnoreLayer;
 
     public event System.Action OnDeath;
 
@@ -89,6 +91,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (!bats)
         {
+            Physics.IgnoreLayerCollision(yourLayer.value, batIgnoreLayer.value, true);
             bats = true;
             mover.speed = mover.speed * speedMultiplier;
             foreach (Animator animator in animators)
@@ -101,6 +104,7 @@ public class Player : MonoBehaviour, IDamageable
 
         if (batsEndTime < Time.time)
         {
+            Physics.IgnoreLayerCollision(yourLayer.value, batIgnoreLayer.value, true);
             shadow.SetActive(true);
             bats = false;
             mover.speed = mover.speed / speedMultiplier;
@@ -277,12 +281,13 @@ public class Player : MonoBehaviour, IDamageable
     #region Ether
     public void DoDamage(float strength)
     {
+        if (bats) return;
         ether = ether - strength;
     }
 
     public void ConsumeEther(float cost)
     {
-        DoDamage(cost);
+        ether = ether - cost;
     }
     #endregion
 }
