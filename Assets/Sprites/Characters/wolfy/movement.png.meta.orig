@@ -1,4 +1,5 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: a77fc95bc0cea9e48a84e99af4fa5304
 TextureImporter:
   fileIDToRecycleName:
@@ -6,12 +7,21 @@ TextureImporter:
     21300002: movement_1
     21300004: movement_2
     21300006: movement_3
+=======
+guid: 7b3aef344906a40f09949681692da929
+TextureImporter:
+  fileIDToRecycleName: {}
+>>>>>>> 6074fe4981f1606590e4b9ccf5350e6d044124c1
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
+<<<<<<< HEAD
     sRGBTexture: 0
+=======
+    sRGBTexture: 1
+>>>>>>> 6074fe4981f1606590e4b9ccf5350e6d044124c1
     linearTexture: 0
     fadeOut: 0
     borderMipMap: 0
@@ -35,6 +45,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
+<<<<<<< HEAD
     filterMode: 0
     aniso: -1
     mipBias: -100
@@ -50,6 +61,23 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 64
+=======
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+>>>>>>> 6074fe4981f1606590e4b9ccf5350e6d044124c1
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -67,6 +95,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
+<<<<<<< HEAD
     textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
@@ -75,6 +104,13 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+=======
+    textureCompression: 1
+>>>>>>> 6074fe4981f1606590e4b9ccf5350e6d044124c1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -82,6 +118,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
+<<<<<<< HEAD
     sprites:
     - serializedVersion: 2
       name: movement_0
@@ -162,10 +199,18 @@ TextureImporter:
       vertices: []
       indices: 
       edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
     spriteID: 867af2ae371f83c408f781b07c9108b2
+=======
+    sprites: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: c2dc0cd7269b8453b8ce249b622e5239
+>>>>>>> 6074fe4981f1606590e4b9ccf5350e6d044124c1
     vertices: []
     indices: 
     edges: []

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 5530e196e3aad2147ab45b32b71d8518
+=======
+guid: 5e0709a22ceb74afc9ebf1b62a56da20
+>>>>>>> 6074fe4981f1606590e4b9ccf5350e6d044124c1
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
@@ -7,7 +11,11 @@ TextureImporter:
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
+<<<<<<< HEAD
     sRGBTexture: 0
+=======
+    sRGBTexture: 1
+>>>>>>> 6074fe4981f1606590e4b9ccf5350e6d044124c1
     linearTexture: 0
     fadeOut: 0
     borderMipMap: 0
@@ -31,20 +39,38 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
+<<<<<<< HEAD
     filterMode: 0
     aniso: -1
     mipBias: -100
     wrapU: 0
     wrapV: 0
     wrapW: 0
+=======
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+>>>>>>> 6074fe4981f1606590e4b9ccf5350e6d044124c1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
   spriteMode: 1
+<<<<<<< HEAD
   spriteExtrude: 0
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 64
+=======
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+>>>>>>> 6074fe4981f1606590e4b9ccf5350e6d044124c1
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -62,6 +88,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
+<<<<<<< HEAD
     textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
@@ -70,6 +97,13 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+=======
+    textureCompression: 1
+>>>>>>> 6074fe4981f1606590e4b9ccf5350e6d044124c1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -81,7 +115,11 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
+<<<<<<< HEAD
     spriteID: 912afb4aef5ab7a47a1772adc4edcdc3
+=======
+    spriteID: 5cd448f59f8fd4b22bcbece601c194a3
+>>>>>>> 6074fe4981f1606590e4b9ccf5350e6d044124c1
     vertices: []
     indices: 
     edges: []
