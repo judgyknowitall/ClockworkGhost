@@ -17,7 +17,9 @@ public class LevelManager : MonoBehaviour {
 	#region Internal Data
 	float scale {
 		get{ return roomSize + separation + tileDistance; }
-	}	
+	}
+
+	Wolverine enemy;
 	#endregion
 
 	#region Generated Data Structures
@@ -32,6 +34,7 @@ public class LevelManager : MonoBehaviour {
 		}
 
 		levelEnumerator = levels.GetEnumerator();
+		enemy = FindObjectOfType<Wolverine>();
 
 		NextLevel();
 	}
@@ -77,7 +80,7 @@ public class LevelManager : MonoBehaviour {
 				end.transform.Rotate(new Vector3(0,0,180));
 				break;
 			case 3:
-				end.transform.Rotate(new Vector3(0,0,90));
+				end.transform.Rotate(new Vector3(0,0,0));
 				break;
 		}
 
@@ -186,6 +189,11 @@ public class LevelManager : MonoBehaviour {
 
 		if (root.room == null)
 			root.room = new Room(roomSize, tileSet, transform, root, tileDistance);
+
+		for (var i = 0; i < Random.Range(0, 10); i++){
+			var enem = Instantiate(enemy, transform);
+			enem.transform.position = root.position;
+		}
 		
 		BuildAllRooms(root.up);
 		BuildAllRooms(root.down);
@@ -247,29 +255,24 @@ public class LevelManager : MonoBehaviour {
 
 				int indexStart = 0;
 				int indexEnd = 0;
-				float rot = 0;
 
 				if (i < 0){
 					switch(dir){
 						case GraphDirections.UP:
 							indexStart = 0;
 							indexEnd = 2;
-							rot = 90;
 							break;
 						case GraphDirections.DOWN:
-							indexStart = 3;
-							indexEnd = 2;
-							rot = 90;
+							indexStart = 2;
+							indexEnd = 0;
 							break;
 						case GraphDirections.LEFT:
 							indexStart = 2;
-							indexEnd = 0;
-							rot = 0;
+							indexEnd = 3;
 							break;
 						case GraphDirections.RIGHT:
-							indexStart = 2;
-							indexEnd = 0;
-							rot = 0;
+							indexStart = 3;
+							indexEnd = 2;
 							break;
 					}
 				}else if (i >= start.room.walls.GetLength(1)){
@@ -277,22 +280,20 @@ public class LevelManager : MonoBehaviour {
 						case GraphDirections.UP:
 							indexStart = 1;
 							indexEnd = 3;
-							rot = 90;
 							break;
-						case GraphDirections.DOWN:
+			
+			case GraphDirections.DOWN:
 							indexStart = 3;
 							indexEnd = 1;
-							rot = 90;
+
 							break;
 						case GraphDirections.LEFT:
-							indexStart = 2;
-							indexEnd = 3;
-							rot = 0;
+							indexStart = 0;
+							indexEnd = 1;
 							break;
 						case GraphDirections.RIGHT:
-							indexStart = 3;
-							indexEnd = 2;
-							rot = 0;
+							indexStart = 2;
+							indexEnd = 0;
 							break;
 					}
 				}
@@ -469,6 +470,7 @@ public class LevelManager : MonoBehaviour {
 	}
 	#endregion
 }
+
 
 
 static class MyExtensions{

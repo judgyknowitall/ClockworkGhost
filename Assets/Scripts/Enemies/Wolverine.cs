@@ -61,13 +61,13 @@ public class Wolverine : Enemy
 
         var maybeHit = Physics2D.CircleCast((Vector2)transform.position, 1.1f, tmpDir, lookDistance);
         if (maybeHit.collider == null) {
-            Debug.DrawLine(transform.position, transform.position + tmpDir.normalized * 0.1f + tmpDir.normalized * lookDistance, Color.green, 0.5f);
-            Debug.Log(maybeHit.collider);
+            //Debug.DrawLine(transform.position, transform.position + tmpDir.normalized * 0.1f + tmpDir.normalized * lookDistance, Color.green, 0.5f);
+            //Debug.Log(maybeHit.collider);
             return tmpDir;
         }
         else {
-            Debug.DrawLine(transform.position, transform.position + tmpDir.normalized * 0.1f + tmpDir.normalized * lookDistance, Color.red, 0.5f);
-            Debug.Log(maybeHit.collider);
+            //Debug.DrawLine(transform.position, transform.position + tmpDir.normalized * 0.1f + tmpDir.normalized * lookDistance, Color.red, 0.5f);
+            //Debug.Log(maybeHit.collider);
             return Random.insideUnitCircle.normalized;
         }
         
