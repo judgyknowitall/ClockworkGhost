@@ -59,9 +59,10 @@ public class Wolverine : Enemy
     {
         var tmpDir = player.transform.position - transform.position;
 
-        var maybeHit = Physics2D.Raycast(transform.position, tmpDir, lookDistance);
+        var maybeHit = Physics2D.Raycast(transform.position + tmpDir, tmpDir, lookDistance);
         if (maybeHit.collider == null) return tmpDir;
         else{
+            Debug.Log(maybeHit.collider);
             var tryDirection = Physics2D.Raycast(transform.position, Vector2.up, lookDistance);
             if (tryDirection.collider != null) return Vector2.up;
             tryDirection = Physics2D.Raycast(transform.position, Vector2.down, lookDistance);
