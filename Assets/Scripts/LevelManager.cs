@@ -190,7 +190,8 @@ public class LevelManager : MonoBehaviour {
 		if (root.room == null)
 			root.room = new Room(roomSize, tileSet, transform, root, tileDistance);
 
-		for (var i = 0; i < Random.Range(0, 10); i++){
+		int[] enemiesToSpaw = {1, 1, 1, 2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0, 0, 0, 0};
+		for (var i = 0; i < enemiesToSpaw[(int)Random.Range(0, enemiesToSpaw.Length)]; i++){
 			var enem = Instantiate(enemy, transform);
 			enem.transform.position = root.position;
 		}

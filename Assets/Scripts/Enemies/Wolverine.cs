@@ -62,7 +62,8 @@ public class Wolverine : Enemy
 
         var hitPlayer = Physics2D.Raycast(transform.position, tmpDir, Mathf.Infinity, ~(1 << 8));
         if (hitPlayer.collider != null){
-            Debug.DrawRay(transform.position, tmpDir, Color.green);
+            //Debug.DrawRay(transform.position, tmpDir, Color.green);
+            //Debug.Log(hitPlayer.collider.gameObject.tag);
             if (hitPlayer.collider.gameObject.tag == "Player") return tmpDir;
         }
 
