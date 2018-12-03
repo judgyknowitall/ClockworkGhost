@@ -185,7 +185,7 @@ public class Player : MonoBehaviour, IDamageable
         bool enemyFound = false;
         foreach (RaycastHit2D hit in spherecastResults)
         {
-            if (hit.collider == null || hit.collider.gameObject.GetComponent<Enemy>() == null )//|| !hit.collider.gameObject.GetComponent<Enemy>().stunned)
+            if (hit.collider == null || hit.collider.gameObject.GetComponent<Wolverine>() == null || !hit.collider.gameObject.GetComponent<Wolverine>().CanAttack())
             {
                 continue;
             }
