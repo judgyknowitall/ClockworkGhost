@@ -91,7 +91,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (!bats)
         {
-            Physics.IgnoreLayerCollision(yourLayer.value, batIgnoreLayer.value, true);
+            Physics2D.IgnoreLayerCollision(yourLayer.layermask_to_layer(), batIgnoreLayer.layermask_to_layer(), true);
             bats = true;
             mover.speed = mover.speed * speedMultiplier;
             foreach (Animator animator in animators)
@@ -104,7 +104,7 @@ public class Player : MonoBehaviour, IDamageable
 
         if (batsEndTime < Time.time)
         {
-            Physics.IgnoreLayerCollision(yourLayer.value, batIgnoreLayer.value, true);
+            Physics2D.IgnoreLayerCollision(yourLayer.layermask_to_layer(), batIgnoreLayer.layermask_to_layer(), false);
             shadow.SetActive(true);
             bats = false;
             mover.speed = mover.speed / speedMultiplier;

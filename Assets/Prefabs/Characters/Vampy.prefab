@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4261687234348664}
   - component: {fileID: 212222288432901176}
   - component: {fileID: 95712563337083570}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4507516224182934}
   - component: {fileID: 114845147810103738}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Origin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 20463238062924690}
   - component: {fileID: 82437480730748624}
   - component: {fileID: 114280599297062074}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 114436239920235360}
   - component: {fileID: 61888998479946120}
   - component: {fileID: 81675252739002880}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Vampy
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4204711713463448}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 95899538202934458}
   - component: {fileID: 50796521098235286}
   - component: {fileID: 114365220914601384}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,15 +483,21 @@ MonoBehaviour:
   - {fileID: 95899538202934458}
   shadow: {fileID: 1307244322145726}
   head: {fileID: 114845147810103738}
-  ether: 100
+  ether: 500
   biteCircleWidth: 0.5
   jumpPauseTime: 0.08
   jumpTimeSteps: 10
   biteCircleMaxDistance: 3
   etherFromBite: 20
-  batsTime: 1
-  speedMultiplier: 2
+  batsTime: 2
+  speedMultiplier: 1.75
   batsEtherCost: 50
+  yourLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  batIgnoreLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &114573525570559826
 MonoBehaviour:
   m_ObjectHideFlags: 1

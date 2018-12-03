@@ -194,40 +194,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114436239920235360, guid: 03ddc39337c5e4d22b69d5a9eed06f78,
-        type: 2}
-      propertyPath: batIgnoreLayer.m_Bits
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 114436239920235360, guid: 03ddc39337c5e4d22b69d5a9eed06f78,
-        type: 2}
-      propertyPath: yourLayer.m_Bits
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 1377631018598676, guid: 03ddc39337c5e4d22b69d5a9eed06f78, type: 2}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1350222559864798, guid: 03ddc39337c5e4d22b69d5a9eed06f78, type: 2}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1229005696270176, guid: 03ddc39337c5e4d22b69d5a9eed06f78, type: 2}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1307244322145726, guid: 03ddc39337c5e4d22b69d5a9eed06f78, type: 2}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1513331855985946, guid: 03ddc39337c5e4d22b69d5a9eed06f78, type: 2}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1637626513677194, guid: 03ddc39337c5e4d22b69d5a9eed06f78, type: 2}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03ddc39337c5e4d22b69d5a9eed06f78, type: 2}
   m_IsPrefabAsset: 0

@@ -60,4 +60,17 @@ public static class Extensions
     {
         return new Vector3(Random.Range(0, range), Random.Range(0, range), Random.Range(0, range));
     }
+
+
+    public static int layermask_to_layer(this LayerMask layerMask)
+    {
+        int layerNumber = 0;
+        int layer = layerMask.value;
+        while (layer > 0)
+        {
+            layer = layer >> 1;
+            layerNumber++;
+        }
+        return layerNumber - 1;
+    }
 }
