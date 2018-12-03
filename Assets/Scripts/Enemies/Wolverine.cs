@@ -9,6 +9,7 @@ public class Wolverine : Enemy
 
     [Header("Attack Sound")]
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private Animator animator;
 
     [Header("Attack Cooldown Time")]
     [SerializeField] private float attackCooldownLength = 2;
@@ -52,6 +53,6 @@ public class Wolverine : Enemy
 
     protected override Vector2 DecideMovementDirection()
     {
-        return Random.onUnitSphere;
+        return Vector2.zero;
     }
 }

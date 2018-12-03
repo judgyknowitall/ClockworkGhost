@@ -122,11 +122,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4120998339419240, guid: bf5560f7ca90513449e4581840d850d9, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -3.12
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 4120998339419240, guid: bf5560f7ca90513449e4581840d850d9, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.04
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4120998339419240, guid: bf5560f7ca90513449e4581840d850d9, type: 2}
       propertyPath: m_LocalPosition.z
@@ -156,8 +156,12 @@ Prefab:
         type: 2}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300010, guid: b96d7009dd7b39b4891fe307ffa215bd,
+      objectReference: {fileID: 21300000, guid: a77fc95bc0cea9e48a84e99af4fa5304,
         type: 3}
+    - target: {fileID: 4293387643637438, guid: bf5560f7ca90513449e4581840d850d9, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf5560f7ca90513449e4581840d850d9, type: 2}
   m_IsPrefabAsset: 0
@@ -389,7 +393,7 @@ MonoBehaviour:
     snd: {fileID: 1577065507609844, guid: 20aaa9fb02007834f9cf75cacee5b45a, type: 2}
   - fst: 2
     snd: {fileID: 1103860424014632, guid: 9bd453d82a4bab54faaacaaeae5972f9, type: 2}
-  endObject: {fileID: 1232154207866632, guid: a1302792552fc49ba8d14e2561c2dc26, type: 2}
+  endObject: {fileID: 1720632948188356, guid: f55988f8b68ed304ea6b0f4640dfa3a3, type: 2}
   roomSize: 8
   separation: 8
   tileDistance: 1
@@ -696,7 +700,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300002, guid: 9681213dc0e34b24f8294daab23ff8b7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9681213dc0e34b24f8294daab23ff8b7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -730,7 +734,7 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1898628993}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4c50d9f7ba3681f4bb23cb9bc602c1d4, type: 3}

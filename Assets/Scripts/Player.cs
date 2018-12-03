@@ -168,6 +168,7 @@ public class Player : MonoBehaviour, IDamageable
     private IEnumerator Jump(Vector2 enemyPosition, Vector2 playerPosition, RaycastHit2D spherecastResult)
     {
         print("Breif Pause");
+        animator.SetBool("RedFlash",true);
         for (int i = 0; i < jumpPauseTime; i++)
         {
             yield return new WaitForSeconds(1); 
@@ -195,6 +196,7 @@ public class Player : MonoBehaviour, IDamageable
         Destroy(spherecastResult.collider.gameObject);
         ether += etherFromBite;
         biting = false;
+        animator.SetBool("Red Flash Done", true);
         mover.displayOrderOffset -= 1;
         print("Finished Bite");
     }
