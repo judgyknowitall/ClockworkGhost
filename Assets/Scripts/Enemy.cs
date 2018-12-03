@@ -11,7 +11,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     public bool stunned = false;
     public bool beingKilled = false;
-    public bool ready = false;
+    //public bool ready = false;
 
     void Awake()
     {
@@ -25,10 +25,10 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 	
 	protected virtual void FixedUpdate()
     {
-        if (ready){
+        //if (ready){
             if (stunned) { mover.Move(Vector2.zero); }
             Move();
-        }
+        //}
     }
 
     #region Movement

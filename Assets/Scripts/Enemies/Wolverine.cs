@@ -21,10 +21,10 @@ public class Wolverine : Enemy
     [SerializeField] private uint damage = 15;
     public LevelManager.Node startRoom;
 
-    Stack<Goal> plan = new Stack<Goal>();
+    /* Stack<Goal> plan = new Stack<Goal>();
 
     Goal currentGoal;
-    GoalData brain;
+    GoalData brain;*/
 
     private float attackCooldown = 0;
 
@@ -41,7 +41,7 @@ public class Wolverine : Enemy
         stunned = false;
     }
 
-    void NextGoal(){
+    /*void NextGoal(){
         foreach (var dep in plan){
             //print(dep);
         }
@@ -63,11 +63,11 @@ public class Wolverine : Enemy
         plan.Pop();
         currentGoal = plan.Peek();
         //print(currentGoal);
-    }
+    }*/
 
     void Update(){
         if (stunned) print ("I am so stunned right now");
-        if (startRoom != null && brain == null){
+        /*if (startRoom != null && brain == null){
             brain = new GoalData{
                 self = transform,
                 player = this.player,
@@ -81,7 +81,7 @@ public class Wolverine : Enemy
             }
             NextGoal();
             ready = true;
-        }
+        }*/
     }
 
     protected override void FixedUpdate()
@@ -126,16 +126,16 @@ public class Wolverine : Enemy
     {
         if (stunned) return Vector2.zero;
         
-        if (!currentGoal.isAchieved && !brain.newDependenciesExist){
+        /*if (!currentGoal.isAchieved && !brain.newDependenciesExist){
             //print("Doing " + currentGoal + " because " + brain.newDependenciesExist);
             return currentGoal.Do();
         }else{
             NextGoal();
             brain.newDependenciesExist = false;
             return Vector2.zero;
-        }
+        }*/
 
-        /*var tmpDir = player.transform.position - transform.position;
+        var tmpDir = player.transform.position - transform.position;
         Vector2 ouput;
 
         var hitPlayer = Physics2D.Raycast(transform.position, tmpDir, Mathf.Infinity, ~(1 << 8));
@@ -154,7 +154,7 @@ public class Wolverine : Enemy
         else {
             //Debug.Drprivate Vector2 backSide = Vector2.left;awLine(transform.position, transform.position + tmpDir.normalized * 0.1f + tmpDir.normalized * lookDistance, Color.red, 0.5f);
             //Debug.Log(maybeHit.collider);
-            ouput = Random.insideUnitCircle.normalized;
+            ouput = Vector2.zero;
         }
 
         if (Vector2.Dot(ouput, Vector2.left) > 0.5f)
@@ -171,6 +171,6 @@ public class Wolverine : Enemy
             back = Vector2.right;
         }
 
-        return ouput;*/
+        return ouput;
     }
 }
