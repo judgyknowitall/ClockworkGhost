@@ -192,6 +192,7 @@ public class LevelManager : MonoBehaviour {
 
 		for (var i = 0; i < enemiesToSpaw[(int)Random.Range(0, enemiesToSpaw.Length)]; i++){
 			var enem = Instantiate(enemy, transform);
+			enem.GetComponent<Wolverine>().startRoom = root;
 			enem.transform.position = root.position;
 		}
 		

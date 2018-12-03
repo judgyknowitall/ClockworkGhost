@@ -19,6 +19,7 @@ public class Wolverine : Enemy
     [SerializeField] private float lookDistance;
 
     [SerializeField] private uint damage = 15;
+    public LevelManager.Node startRoom;
 
     Stack<Goal> plan = new Stack<Goal>();
 
@@ -29,28 +30,30 @@ public class Wolverine : Enemy
 
     private Vector2 back = Vector2.right;
 
+    private void Awake() {
+        
+    }
+
     protected override void Start()
     {
         base.Start();
+        player = FindObjectOfType<Player>();
         stunned = false;
-
-        brain = new GoalData{
-            self = transform,
-            player = this.player,
-            levelManager = FindObjectOfType<LevelManager>()
-        };
-        plan.Push(new KillPlayer(brain));
-
     }
 
     void NextGoal(){
+        foreach (var dep in plan){
+            //print(dep);
+        }
         var top = plan.Peek();
         bool allGood = false;
 
         while (!allGood){
             allGood = true;
             foreach (var dep in top.dependencies){
+                //print(dep + " " + dep.isAchieved);
                 if (dep.isAchieved) continue;
+                //print(dep);
                 plan.Push(dep);
                 allGood = false;
             }
@@ -59,10 +62,26 @@ public class Wolverine : Enemy
 
         plan.Pop();
         currentGoal = plan.Peek();
+        //print(currentGoal);
     }
 
     void Update(){
         if (stunned) print ("I am so stunned right now");
+        if (startRoom != null && brain == null){
+            brain = new GoalData{
+                self = transform,
+                player = this.player,
+                levelManager = FindObjectOfType<LevelManager>(),
+                currentRoom = startRoom
+            };
+            brain.exploredRooms.Add(brain.currentRoom);
+            plan.Push(new KillPlayer(brain));
+            foreach (var dep in plan){
+                //print(dep);
+            }
+            NextGoal();
+            ready = true;
+        }
     }
 
     protected override void FixedUpdate()
@@ -107,14 +126,14 @@ public class Wolverine : Enemy
     {
         if (stunned) return Vector2.zero;
         
-        if (!currentGoal.isAchieved || !brain.newDependenciesExist){
+        if (!currentGoal.isAchieved && !brain.newDependenciesExist){
+            //print("Doing " + currentGoal + " because " + brain.newDependenciesExist);
             return currentGoal.Do();
         }else{
             NextGoal();
             brain.newDependenciesExist = false;
             return Vector2.zero;
         }
-
 
         /*var tmpDir = player.transform.position - transform.position;
         Vector2 ouput;
