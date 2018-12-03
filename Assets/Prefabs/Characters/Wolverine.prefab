@@ -250,6 +250,7 @@ MonoBehaviour:
   audioSource: {fileID: 82975620336555906}
   animator: {fileID: 95243195822525664}
   attackCooldownLength: 3
+  paceFrequency: 2.79
   damage: 20
 --- !u!114 &114314120022537558
 MonoBehaviour:
@@ -300,7 +301,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a77fc95bc0cea9e48a84e99af4fa5304, type: 3}
+  m_Sprite: {fileID: 21300002, guid: a77fc95bc0cea9e48a84e99af4fa5304, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

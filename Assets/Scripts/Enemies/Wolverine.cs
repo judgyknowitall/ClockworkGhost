@@ -57,7 +57,7 @@ public class Wolverine : Enemy
     protected override Vector2 DecideMovementDirection()
     {
         Vector2 direction = Vector2.left;
-        if (Mathf.Sin(paceFrequency * Time.time) > 0)
+        if (Input.GetKey(KeyCode.A))
         {
             direction = direction * -1;
             animator.SetBool("Right", true);
@@ -69,6 +69,6 @@ public class Wolverine : Enemy
             animator.SetBool("Right", false);
         }
 
-        return direction;
+        return Vector2.zero; //direction;
     }
 }
