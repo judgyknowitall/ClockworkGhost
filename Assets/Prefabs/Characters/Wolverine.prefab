@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4977755309433204}
   - component: {fileID: 61879168455522312}
+  - component: {fileID: 114784377755695988}
   m_Layer: 8
   m_Name: Attack Left Hitbox
   m_TagString: Untagged
@@ -36,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4098127091085372}
   - component: {fileID: 61296938063782928}
+  - component: {fileID: 114375877114228928}
   m_Layer: 8
   m_Name: Attack Right Hitbox
   m_TagString: Untagged
@@ -164,7 +166,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.4589182, y: -0.026863813}
@@ -189,7 +191,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.4589182, y: -0.026863813}
@@ -217,7 +219,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.059476912, y: -0.0892154}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -228,7 +230,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.64313805, y: 1.18976}
   m_EdgeRadius: 0
 --- !u!82 &82975620336555906
 AudioSource:
@@ -236,7 +238,7 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1441050445019064}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 31369f0670d20b14b998373860c477d9, type: 3}
@@ -361,6 +363,8 @@ MonoBehaviour:
   animator: {fileID: 95243195822525664}
   attackCooldownLength: 3
   paceFrequency: 2.79
+  leftAttackCollider: {fileID: 114784377755695988}
+  rightAttackCollider: {fileID: 114375877114228928}
   lookDistance: 1
   damage: 20
 --- !u!114 &114314120022537558
@@ -377,6 +381,30 @@ MonoBehaviour:
   speed: 3
   spriteRenderer: {fileID: 212366525789372938}
   displayOrderOffset: 0
+--- !u!114 &114375877114228928
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1338797215792956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd53943b6a177fd4680488db7c1e2aca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInMe: 0
+--- !u!114 &114784377755695988
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1332434599752492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd53943b6a177fd4680488db7c1e2aca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInMe: 0
 --- !u!212 &212366525789372938
 SpriteRenderer:
   m_ObjectHideFlags: 1

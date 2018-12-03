@@ -15,8 +15,8 @@ public class Wolverine : Enemy
     [Header("Attack Cooldown Time")]
     [SerializeField] private float attackCooldownLength = 2;
     [SerializeField] private float paceFrequency;
-    [SerializeField] private BoxCollider2D leftAttackCollider;
-    [SerializeField] private BoxCollider2D rightAttackCollider;
+    [SerializeField] private HitBoxDetector leftAttackCollider;
+    [SerializeField] private HitBoxDetector rightAttackCollider;
 
     [SerializeField] private float lookDistance;
 
@@ -94,7 +94,10 @@ public class Wolverine : Enemy
         }
         base.FixedUpdate();
         if (beingKilled) return;
-        animator.SetBool("LeftAttack", animator.GetCurrentAnimatorStateInfo(0).IsName("Base_Layer.AttackLeft"));
+        if ( animator.GetBool("LeftAttack") && !animator.GetCurrentAnimatorStateInfo(0).IsName("AttackLeft"))
+            animator.SetBool("LeftAttack", false);
+        if (animator.GetBool("RightAttack") && !animator.GetCurrentAnimatorStateInfo(0).IsName("AttackRight"))
+            animator.SetBool("RightAttack", false);
         Attack();
     }
 
@@ -104,9 +107,9 @@ public class Wolverine : Enemy
         attackCooldown -= Time.deltaTime;
         if (attackCooldown <= 0)
         {
-            if (leftAttackCollider.IsTouching(player.myHitbox))
+            if (leftAttackCollider.playerInMe)
                 Swipe(true);
-            else if (leftAttackCollider.IsTouching(player.myHitbox))
+            else if (rightAttackCollider.playerInMe)
                 Swipe(false);
         }
     }

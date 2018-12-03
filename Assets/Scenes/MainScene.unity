@@ -347,7 +347,7 @@ MonoBehaviour:
   roomSize: 8
   separation: 8
   tileDistance: 1
-  enemiesToSpaw: 010000000100000001000000020000000200000003000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  enemiesToSpaw: 00000000
   enemy: {fileID: 114224184905506810, guid: bf5560f7ca90513449e4581840d850d9, type: 2}
 --- !u!4 &837555953
 Transform:
@@ -530,21 +530,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d70a7e0b048119641bd69902265325b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &1134259975 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 61296938063782928, guid: bf5560f7ca90513449e4581840d850d9,
-    type: 2}
-  m_PrefabInternal: {fileID: 1932317276}
 --- !u!224 &1390402535 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224096917865463844, guid: 8ff43a8bfadab714282e6a56abe5c377,
     type: 2}
   m_PrefabInternal: {fileID: 834369703}
---- !u!61 &1669974832 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 61879168455522312, guid: bf5560f7ca90513449e4581840d850d9,
-    type: 2}
-  m_PrefabInternal: {fileID: 1932317276}
 --- !u!1001 &1932317276
 Prefab:
   m_ObjectHideFlags: 0
@@ -584,26 +574,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114224184905506810, guid: bf5560f7ca90513449e4581840d850d9,
-        type: 2}
-      propertyPath: leftAttackCollider
-      value: 
-      objectReference: {fileID: 1669974832}
-    - target: {fileID: 114224184905506810, guid: bf5560f7ca90513449e4581840d850d9,
-        type: 2}
-      propertyPath: rightAttackCollider
-      value: 
-      objectReference: {fileID: 1134259975}
-    - target: {fileID: 61879168455522312, guid: bf5560f7ca90513449e4581840d850d9,
-        type: 2}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 61296938063782928, guid: bf5560f7ca90513449e4581840d850d9,
-        type: 2}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 82975620336555906, guid: bf5560f7ca90513449e4581840d850d9, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: bf5560f7ca90513449e4581840d850d9, type: 2}
   m_IsPrefabAsset: 0
