@@ -61,6 +61,11 @@ public class LevelManager : MonoBehaviour {
 		BuildAllRooms(graph.root);
 		BuildAllHallways(graph.root);
 
+		for (var i = 0; i < 10; i++){
+			var tmp = Instantiate(enemy, transform);
+			tmp.transform.position = special[0].position;
+		}
+
 		var endRoomWalls = special[0].room.walls;
 		var whichWall = Random.Range(0, 4);
 		
