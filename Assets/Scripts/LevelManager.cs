@@ -54,8 +54,8 @@ public class LevelManager : MonoBehaviour {
 	#region Level Generation
 	public void GenerateLevel(LevelDescriptor level){ 
 		var graph = GenerateGraph(level.length, level.complexity);
-		BuildAllRooms(graph.root.right);
-		BuildAllHallways(graph.root.right);
+		BuildAllRooms(graph.root);
+		BuildAllHallways(graph.root);
 
 		var endRoomWalls = special[0].room.walls;
 		var whichWall = Random.Range(0, 4);
