@@ -59,19 +59,17 @@ public class Wolverine : Enemy
     {
         var tmpDir = player.transform.position - transform.position;
 
-        var maybeHit = Physics2D.Raycast(transform.position + tmpDir, tmpDir, lookDistance);
-        if (maybeHit.collider == null) return tmpDir;
-        else{
+        var maybeHit = Physics2D.CircleCast((Vector2)transform.position, 1.1f, tmpDir, lookDistance);
+        if (maybeHit.collider == null) {
+            Debug.DrawLine(transform.position, transform.position + tmpDir.normalized * 0.1f + tmpDir.normalized * lookDistance, Color.green, 0.5f);
             Debug.Log(maybeHit.collider);
-            var tryDirection = Physics2D.Raycast(transform.position, Vector2.up, lookDistance);
-            if (tryDirection.collider != null) return Vector2.up;
-            tryDirection = Physics2D.Raycast(transform.position, Vector2.down, lookDistance);
-            if (tryDirection.collider != null) return Vector2.down;
-            tryDirection = Physics2D.Raycast(transform.position, Vector2.left, lookDistance);
-            if (tryDirection.collider != null) return Vector2.left;
-            tryDirection = Physics2D.Raycast(transform.position, Vector2.right, lookDistance);
-            if (tryDirection.collider != null) return Vector2.right;
-            else return Vector2.zero;
+            return tmpDir;
         }
+        else {
+            Debug.DrawLine(transform.position, transform.position + tmpDir.normalized * 0.1f + tmpDir.normalized * lookDistance, Color.red, 0.5f);
+            Debug.Log(maybeHit.collider);
+            return Random.insideUnitCircle.normalized;
+        }
+        
     }
 }

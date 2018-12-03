@@ -182,6 +182,11 @@ Prefab:
       propertyPath: speed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 82975620336555906, guid: bf5560f7ca90513449e4581840d850d9,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf5560f7ca90513449e4581840d850d9, type: 2}
   m_IsPrefabAsset: 0
@@ -470,7 +475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d36af6f8f6e3e4a3ab7311f61363d6d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1605884238}
+  animators: []
   ether: 100
   head: {fileID: 334289952}
   biteCircleWidth: 0.5
