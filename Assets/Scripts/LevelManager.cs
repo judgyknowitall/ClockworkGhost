@@ -13,6 +13,7 @@ public class LevelManager : MonoBehaviour {
 	public int separation = 3;
 	public float tileDistance = 0.6f;
     public int[] enemiesToSpaw = { 1, 1, 1, 2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0, 0, 0, 0 };
+    public Wolverine enemy;
     #endregion
 
     #region Internal Data
@@ -20,7 +21,6 @@ public class LevelManager : MonoBehaviour {
 		get{ return roomSize + separation + tileDistance; }
 	}
 
-	Wolverine enemy;
 	#endregion
 
 	#region Generated Data Structures
@@ -35,7 +35,6 @@ public class LevelManager : MonoBehaviour {
 		}
 
 		levelEnumerator = levels.GetEnumerator();
-		enemy = FindObjectOfType<Wolverine>();
 
 		NextLevel();
 	}

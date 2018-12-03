@@ -231,13 +231,46 @@ public class Player : MonoBehaviour, IDamageable
         float distancePerFrame = Vector2.Distance(enemyPosition, playerPosition) / jumpTimeSteps;
         Vector2 direction = (enemyPosition - playerPosition).normalized;
 
+        float angle = FindDegree(direction.x, direction.y);
+
+        print(angle);
+
+        if (angle >= 315 && angle<= 360 || angle >=0 && angle < 45)
+        {
+            print("Right!");
+            foreach (Animator animator in animators)
+            {
+                animator.SetBool("RightJump", true);
+            }
+        }
+        else if (angle >= 45 && angle < 135)
+        {
+            print("UP!");
+            foreach (Animator animator in animators)
+            {
+                animator.SetBool("UpJump", true);
+            }
+        }
+        else if (angle >= 135 && angle < 225)
+        {
+            print("LEft!");
+            foreach (Animator animator in animators)
+            {
+                animator.SetBool("LeftJump", true);
+            }
+        }
+        else if (angle >= 225 && angle < 315)
+        {
+            print("Down!");
+            foreach (Animator animator in animators)
+            {
+                animator.SetBool("DownJump", true);
+            }
+        }
+
         foreach (Animator animator in animators)
         {
             animator.SetBool("RedFlash", false);
-        }
-        foreach (Animator animator in animators)
-        {
-            animator.SetBool("RedFlashIdle", true);
         }
 
         for (int i = 0; i < jumpTimeSteps; i++)
@@ -249,6 +282,14 @@ public class Player : MonoBehaviour, IDamageable
         FinishBite(spherecastResult);
     }
 
+    public static float FindDegree(float x, float y)
+    {
+        float value = (float)((Mathf.Atan2(x, y) / System.Math.PI) * 180f);
+        if (value < 0) value += 360f;
+
+        return value;
+    }
+
     private void FinishBite(RaycastHit2D spherecastResult)
     {
         spherecastResult.collider.gameObject.GetComponent<Enemy>().stunned=true;
@@ -257,7 +298,10 @@ public class Player : MonoBehaviour, IDamageable
         biting = false;
         foreach (Animator animator in animators)
         {
-            animator.SetBool("RedFlashIdle", false);
+            animator.SetBool("RightJump", false);
+            animator.SetBool("UpJump", false);
+            animator.SetBool("LeftJump", false);
+            animator.SetBool("DownJump", false);
         }
         mover.displayOrderOffset -= 1;
     }
