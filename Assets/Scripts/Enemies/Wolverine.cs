@@ -51,7 +51,6 @@ public class Wolverine : Enemy
             if (audioSource != null)
                 audioSource.Play();
             attackCooldown = attackCooldownLength;
-            Debug.Log("WOOF!");
         }
     }  
 

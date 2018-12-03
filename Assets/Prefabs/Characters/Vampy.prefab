@@ -483,7 +483,7 @@ MonoBehaviour:
   - {fileID: 95899538202934458}
   shadow: {fileID: 1307244322145726}
   head: {fileID: 114845147810103738}
-  ether: 500
+  ether: 85
   biteCircleWidth: 0.5
   jumpPauseTime: 0.08
   jumpTimeSteps: 10

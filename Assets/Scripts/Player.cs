@@ -124,7 +124,6 @@ public class Player : MonoBehaviour, IDamageable
 
         if (Input.GetKeyDown(KeyCode.Space) && !bats)
         {
-            print("Space");
             BiteAttempt();
             return;
         }
@@ -181,8 +180,6 @@ public class Player : MonoBehaviour, IDamageable
 
     private void BiteAttempt()
     {
-        print("Attempting Bite");
-        Debug.DrawRay(transform.position, head.direction.normalized * biteCircleMaxDistance, Color.red, 5f);
         RaycastHit2D[] spherecastResults = Physics2D.CircleCastAll(transform.position, biteCircleWidth, head.direction, biteCircleMaxDistance);
         RaycastHit2D enemyToHit = new RaycastHit2D();
         bool enemyFound = false;
@@ -209,8 +206,6 @@ public class Player : MonoBehaviour, IDamageable
     {
         biting = true;
 
-        print("Begining Bite");
-
         spherecastResult.collider.isTrigger = true;
         mover.displayOrderOffset += 1;
         spherecastResult.collider.gameObject.GetComponent<Enemy>().beingKilled = true;
@@ -219,13 +214,11 @@ public class Player : MonoBehaviour, IDamageable
         Vector2 playerPosition = transform.position;
 
         IEnumerator lungeAnimation = Jump(enemyPosition, playerPosition, spherecastResult);
-        print("Begining Jump");
         StartCoroutine(lungeAnimation);
     }
 
     private IEnumerator Jump(Vector2 enemyPosition, Vector2 playerPosition, RaycastHit2D spherecastResult)
     {
-        print("Breif Pause");
         foreach (Animator animator in animators)
         {
             animator.SetBool("RedFlash", true);
@@ -234,7 +227,6 @@ public class Player : MonoBehaviour, IDamageable
         {
             yield return new WaitForSeconds(1); 
         }
-        print("Done Pause");
 
         float distancePerFrame = Vector2.Distance(enemyPosition, playerPosition) / jumpTimeSteps;
         Vector2 direction = (enemyPosition - playerPosition).normalized;
@@ -248,15 +240,12 @@ public class Player : MonoBehaviour, IDamageable
             animator.SetBool("RedFlashIdle", true);
         }
 
-        print("Jumping");
         for (int i = 0; i < jumpTimeSteps; i++)
         {
-            print("Jump step" + i);
             transform.position = playerPosition + (direction * (distancePerFrame * i));
             yield return null;
         }
 
-        print("Jump Complete");
         FinishBite(spherecastResult);
     }
 
@@ -271,7 +260,6 @@ public class Player : MonoBehaviour, IDamageable
             animator.SetBool("RedFlashIdle", false);
         }
         mover.displayOrderOffset -= 1;
-        print("Finished Bite");
     }
 
     #endregion
