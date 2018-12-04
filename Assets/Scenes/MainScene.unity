@@ -152,6 +152,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1377631018598676, guid: 03ddc39337c5e4d22b69d5a9eed06f78, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03ddc39337c5e4d22b69d5a9eed06f78, type: 2}
   m_IsPrefabAsset: 0
@@ -256,6 +260,10 @@ Prefab:
         type: 2}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1842108939093344, guid: 8ff43a8bfadab714282e6a56abe5c377, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ff43a8bfadab714282e6a56abe5c377, type: 2}
@@ -564,10 +572,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114224184905506810, guid: bf5560f7ca90513449e4581840d850d9,
-        type: 2}
-      propertyPath: audioSource
-      value: 
+    - target: {fileID: 1441050445019064, guid: bf5560f7ca90513449e4581840d850d9, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf5560f7ca90513449e4581840d850d9, type: 2}

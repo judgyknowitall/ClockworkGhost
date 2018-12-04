@@ -183,20 +183,29 @@ public class Wolverine : Enemy
             ouput = Vector2.zero;
         }
 
-        if (Vector2.Dot(ouput, Vector2.left) > 0.5f)
-        {
-            animator.SetBool("Left", false);
-            animator.SetBool("Right", true);
-            back = Vector2.left;
+        float angle = FindDegree(ouput.x, ouput.y);
 
+        Debug.DrawRay(transform.position, ouput.normalized*2, Color.red, .75f, false);
+
+        if (angle >= 90 && angle <= 180)
+        {
+            animator.SetBool("Left", true);
+            animator.SetBool("Right", false);
         }
         else
         {
-            animator.SetBool("Right", false);
-            animator.SetBool("Left", true);
-            back = Vector2.right;
+            animator.SetBool("Left", false);
+            animator.SetBool("Right", true);
         }
 
         return ouput;
+    }
+
+    public static float FindDegree(float x, float y)
+    {
+        float value = (float)((Mathf.Atan2(x, y) / System.Math.PI) * 180f);
+        if (value < 0) value += 360f;
+
+        return value;
     }
 }

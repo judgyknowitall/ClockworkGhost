@@ -39,6 +39,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     }
 
     protected abstract Vector2 DecideMovementDirection();
+
     protected void SetMoveSpeed(float speed){
         mover.speed = speed;
     }
