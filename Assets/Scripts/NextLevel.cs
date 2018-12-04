@@ -10,7 +10,7 @@ public class NextLevel : MonoBehaviour
     {
         if (col.tag != "Player") return;
         var b = FindObjectOfType<LevelManager>().NextLevel();
-        if (!b) { SceneManager.LoadScene("Menu"); return; }
+        if (!b) { SceneManager.LoadScene("FinalLevel"); return; }
         FindObjectOfType<Player>().transform.position = Vector2.zero;
     }
 }
