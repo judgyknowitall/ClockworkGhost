@@ -8,7 +8,7 @@ public class Wolverine : Enemy
     [SerializeField] private float range;
 
     [Header("Attack Sound")]
-    [SerializeField] private AudioSource audioSource;
+    public AudioSource audioSource;
     [SerializeField] private Animator animator;
     
 
@@ -121,9 +121,6 @@ public class Wolverine : Enemy
             animator.SetBool("LeftAttack", true);
         else
             animator.SetBool("RightAttack", true);
-
-        if (audioSource != null)
-            audioSource.Play();
 
         attackCooldown = attackCooldownLength;
     }

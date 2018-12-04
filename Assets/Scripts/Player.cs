@@ -35,6 +35,7 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private float batsEtherCost = 50;
     [SerializeField] private LayerMask yourLayer;
     [SerializeField] private LayerMask batIgnoreLayer;
+    [SerializeField] private AudioSource batSqueak;
 
     [Header("Stunning")]
     [SerializeField] private float stunEtherCost = 60;
@@ -98,8 +99,10 @@ public class Player : MonoBehaviour, IDamageable
 
     public void Bats()
     {
+
         if (!bats)
         {
+            batSqueak.Play();
             Physics2D.IgnoreLayerCollision(yourLayer.layermask_to_layer(), batIgnoreLayer.layermask_to_layer(), true);
             bats = true;
             mover.speed = mover.speed * speedMultiplier;
@@ -243,6 +246,7 @@ public class Player : MonoBehaviour, IDamageable
         spherecastResult.collider.isTrigger = true;
         mover.displayOrderOffset += 1;
         spherecastResult.collider.gameObject.GetComponent<Enemy>().beingKilled = true;
+        spherecastResult.collider.gameObject.GetComponent<Wolverine>().audioSource.Play();
 
         Vector2 enemyPosition = spherecastResult.transform.position;
         Vector2 playerPosition = transform.position;
