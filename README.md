@@ -1,6 +1,7 @@
 # ClockworkGhost
 
 Ludum Dare 43 game
+https://caelumsloan.itch.io/arcane-vitality
 
 Made by:
 - Caelum Sloan
